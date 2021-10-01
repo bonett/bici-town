@@ -1,0 +1,7 @@
+{
+  "name": "bici-town",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
