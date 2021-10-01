@@ -1,0 +1,27 @@
+.header-content {
+  align-items: center;
+  display: flex;
+  left: 15px;
+  position: absolute;
+  top: 30px;
+
+  img {
+    border: 7px solid #5e7ccc;
+    border-radius: 50%;
+    height: 80px;
+    margin-right: 14px;
+    width: 80px;
+  }
+
+  h2 {
+    color: #ffffff;
+    font-weight: 400;
+  }
+
+  p {
+    color: #e4e4e4;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+  }
+}
