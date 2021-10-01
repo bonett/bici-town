@@ -6,7 +6,7 @@
   top: 30px;
 
   img {
-    border: 7px solid #5e7ccc;
+    border: 7px solid var(--ion-color-tertiary);
     border-radius: 50%;
     height: 80px;
     margin-right: 14px;
@@ -14,12 +14,12 @@
   }
 
   h2 {
-    color: #ffffff;
+    color: var(--ion-color-white);
     font-weight: 400;
   }
 
   p {
-    color: #e4e4e4;
+    color: var(--ion-color-light);
     font-size: 13px;
     font-weight: 400;
     letter-spacing: 0.4px;
