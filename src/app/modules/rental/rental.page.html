@@ -21,7 +21,7 @@
         <form
           class="form"
           [formGroup]="rentalForm"
-          (ngSubmit)="onSubmit(rentalForm.value)"
+          (ngSubmit)="submitRentalForm(rentalForm.value)"
         >
           <ion-row>
 
@@ -103,7 +103,7 @@
                 mode="ios"
                 mask="separator"
                 type="phone"
-                placeholder="Ingresa telêfono de contácto"
+                placeholder="Ingresa teléfono de contacto"
                 required="true"
               ></ion-input>
               <div class="validation-errors">
