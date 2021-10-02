@@ -2,12 +2,12 @@
   <ion-toolbar mode="ios">
     <ion-buttons slot="start">
       <ion-back-button
+        text="Catalogo"
         defaultHref="/"
-        text="Volver"
       ></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Inventory Page
+      Detalles
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -15,11 +15,67 @@
 
 <ion-content [fullscreen]="true">
   <ion-grid class="ion-padding">
-
     <ion-row>
       <ion-col size="12">
-        Detalles
+        <ion-thumbnail>
+          <ion-img [src]="item.thumbnail"></ion-img>
+        </ion-thumbnail>
       </ion-col>
+      <ion-col size="12">
+        <ion-text color="dark">
+          <h1>{{item.title}}</h1>
+        </ion-text>
+      </ion-col>
+
+
+      <ion-col size="12">
+        <ion-text color="dark">
+          <h6>Descripción</h6>
+        </ion-text>
+        <ion-text color="medium">
+          <p>{{item.description}}</p>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-text color="dark">
+          <h6>Talla</h6>
+        </ion-text>
+        <ion-text color="medium">
+          <h2>{{item.size}}</h2>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="6">
+        <ion-text color="dark">
+          <h6>Colores disponibles</h6>
+        </ion-text>
+
+        <app-colors
+          *ngIf="item.color"
+          [sourceColor]="item.color"
+        ></app-colors>
+
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-text color="dark">
+          <h6>Disponible en tiendas</h6>
+        </ion-text>
+        <ion-text color="medium">
+          <p>
+            <ion-icon
+              name="location"
+              color="tertiary"
+            ></ion-icon>{{item.location}}
+          </p>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-button color="tertiary">Rentar Bici</ion-button>
+      </ion-col>
+
     </ion-row>
   </ion-grid>
 </ion-content>

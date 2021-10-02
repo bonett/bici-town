@@ -4,8 +4,14 @@
       <ion-menu-button menu="main-menu"></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Rental Page
+      Historial
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon
+        slot="icon-only"
+        name="paper-plane-outline"
+      ></ion-icon>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -18,4 +24,17 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-fab
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+  >
+    <ion-fab-button
+      color="tertiary"
+      routerLink="/rental"
+    >
+      <ion-icon name="bicycle-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

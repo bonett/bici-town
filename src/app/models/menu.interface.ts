@@ -1,4 +1,4 @@
-export interface Menu {
+export interface IMenu {
   title: string;
   pageName: string;
   tabComponent: string;

@@ -5,9 +5,12 @@
   position: absolute;
   top: 30px;
 
-  img {
+  ion-avatar {
+    width: 90px;
+  }
+
+  ion-img {
     border: 7px solid var(--ion-color-tertiary);
-    border-radius: 50%;
     height: 80px;
     margin-right: 14px;
     width: 80px;

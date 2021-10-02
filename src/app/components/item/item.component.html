@@ -1,16 +1,16 @@
-<ion-card [ngStyle]="{'background-image': 'url(' + item.thumbnail + ')'}">
-  <ion-row>
+<ion-card [style.background-image]="'url(' + item.thumbnail + ')'">
+  <ion-row class="wrapper">
     <ion-col
       size="12"
-      class="card_description"
+      class="wrapper_description"
     >
-      {{item.title}}
-    </ion-col>
-    <ion-col
-      size="12"
-      class="card_description"
-    >
-      {{item.location}}
+      <ion-label class="title">{{item.title}}</ion-label>
+      <ion-label class="location">
+        <ion-icon
+          name="location"
+          color="tertiary"
+        ></ion-icon>{{item.location}}
+      </ion-label>
     </ion-col>
   </ion-row>
 </ion-card>

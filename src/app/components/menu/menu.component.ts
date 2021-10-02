@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { Menu } from 'src/app/models/menu.interface';
+import { IMenu } from 'src/app/models/menu.interface';
 
 @Component({
   selector: 'app-menu',
@@ -12,20 +12,34 @@ export class MenuComponent implements OnInit {
   public userPhoto: string = '../../../../assets/img/profile.jpeg';
   public userRole: string = 'Developer';
 
-  public pages: Array<Menu> = [
+  public pages: Array<IMenu> = [
     {
       title: 'Catalogo Completo',
       pageName: 'inventory',
       tabComponent: 'InventoryPage',
       index: 0,
-      icon: 'browsers-outline',
+      icon: 'storefront-outline',
     },
     {
       title: 'Historial de Renta',
       pageName: 'historial',
       tabComponent: 'HistorialPage',
       index: 1,
-      icon: 'list',
+      icon: 'bar-chart-outline',
+    },
+    {
+      title: 'Configuración',
+      pageName: 'settings',
+      tabComponent: 'SettingPage',
+      index: 2,
+      icon: 'settings-outline',
+    },
+    {
+      title: 'Salir',
+      pageName: 'signOut',
+      tabComponent: 'SignOutPage',
+      index: 2,
+      icon: 'log-out-outline',
     },
   ];
 

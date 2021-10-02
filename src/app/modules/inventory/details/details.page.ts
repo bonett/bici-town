@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-details',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./details.page.scss'],
 })
 export class DetailsPage implements OnInit {
+  public item: object = {};
 
-  constructor() { }
+  constructor(private storageService: StorageService) {}
 
   ngOnInit() {
+    this.getItemSelected();
   }
 
+  async getItemSelected() {
+    this.item = await this.storageService.get('data_selected');
+    console.log(this.item);
+  }
+
+  ngDestroy() {
+    this.storageService.remove('data_selected');
+  }
 }

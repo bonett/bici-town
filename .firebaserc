@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "generic-authentication-by-wil": {
+      "hosting": {
+        "app": [
+          "generic-authentication-by-wil"
+        ]
+      }
+    }
+  }
+}
