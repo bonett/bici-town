@@ -2,12 +2,12 @@
   <ion-toolbar mode="ios">
     <ion-buttons slot="start">
       <ion-back-button
-        text="Volver"
+        text="Atras"
         defaultHref="/"
       ></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Formulario de Renta
+      Rentar Bici
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,6 +17,7 @@
   <ion-grid class="ion-padding">
     <ion-row>
       <ion-col size="12">
+
         <form
           class="form"
           [formGroup]="rentalForm"
@@ -28,19 +29,60 @@
               size="12"
               class="form-input"
             >
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Tipo de Bibicleta:</h6>
+              </ion-label>
               <ion-input
-                formControlName="fullname"
-                name="fullname"
-                mode="ios"
+                formControlName="bike"
                 type="text"
-                placeholder="Ingresa nombre completo"
-                required="true"
-              ></ion-input>
+                name="bike"
+                mode="ios"
+                placeholder="Selecciona tu bicicleta"
+                (click)="selectBikeInformation()"
+                readonly
+                required
+              >
+              </ion-input>
+
               <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.fullname">
+                <ng-container *ngFor="let validation of validation_messages.bike">
                   <div
                     class="error-message"
-                    *ngIf="rentalForm.get('fullname').hasError(validation.type) && (rentalForm.get('fullname').dirty || rentalForm.get('fullname').touched)"
+                    *ngIf="rentalForm.get('bike').hasError(validation.type) && (rentalForm.get('bike').dirty || rentalForm.get('bike').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Fecha para Rentar:</h6>
+              </ion-label>
+
+              <ion-datetime
+                formControlName="rentDate"
+                display-timezone="utc"
+                mode="ios"
+                min="2021-01"
+                max="2022"
+                placeholder="Selecciona fecha de alquiler"
+                required="true"
+              ></ion-datetime>
+
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.rentDate">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('rentDate').hasError(validation.type) && (rentalForm.get('rentDate').dirty || rentalForm.get('rentDate').touched)"
                   >
                     {{ validation.message }}
                   </div>
@@ -48,16 +90,20 @@
               </div>
             </ion-col>
 
-            <ion-col
-              size="12"
-              class="form-input"
-            >
+            <ion-col size="12">
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Teléfono de contácto:</h6>
+              </ion-label>
               <ion-input
                 formControlName="phone"
                 name="phone"
                 mode="ios"
+                mask="separator"
                 type="phone"
-                placeholder="Ingresa teléfono de contácto"
+                placeholder="Ingresa telêfono de contácto"
                 required="true"
               ></ion-input>
               <div class="validation-errors">
@@ -72,16 +118,19 @@
               </div>
             </ion-col>
 
-            <ion-col
-              size="12"
-              class="form-input"
-            >
+            <ion-col size="12">
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Email de contácto:</h6>
+              </ion-label>
               <ion-input
                 formControlName="email"
                 name="email"
                 mode="ios"
                 type="email"
-                placeholder="Ingresa tu correo electrónico"
+                placeholder="Ingresa email de contácto"
                 required="true"
               ></ion-input>
               <div class="validation-errors">
@@ -95,33 +144,9 @@
                 </ng-container>
               </div>
             </ion-col>
-          </ion-row>
 
-          <!--  <ion-row>
-            <ion-col
-              size="12"
-              class="form-input"
-            >
-              <ion-input
-                formControlName="password"
-                name="password"
-                mode="ios"
-                type="password"
-                placeholder="Ingresa tu contraseña"
-                required="true"
-              ></ion-input>
-              <div class="validation-errors">
-                <ng-container *ngFor="let validation of validation_messages.password">
-                  <div
-                    class="error-message"
-                    *ngIf="rentalForm.get('password').hasError(validation.type) && (rentalForm.get('password').dirty || rentalForm.get('password').touched)"
-                  >
-                    {{ validation.message }}
-                  </div>
-                </ng-container>
-              </div>
-            </ion-col>
-          </ion-row> -->
+
+          </ion-row>
 
           <ion-row>
             <ion-col
@@ -137,18 +162,6 @@
               >Guardar Registro</ion-button>
             </ion-col>
           </ion-row>
-
-          <!--     <ion-row>
-            <ion-col
-              size="12"
-              class="form-input flex-row ion-justify-content-center"
-            >
-              <ion-icon name="logo-facebook"></ion-icon>
-              <ion-icon name="logo-google"></ion-icon>
-              <ion-icon name="logo-instagram"></ion-icon>
-            </ion-col>
-          </ion-row>
- -->
         </form>
       </ion-col>
     </ion-row>

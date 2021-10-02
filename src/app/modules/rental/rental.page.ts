@@ -1,7 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
+import * as moment from 'moment';
+import { Subscription } from 'rxjs';
+import { ModalOptionsComponent } from 'src/app/components/modal-options/modal-options.component';
 import { STATIC } from 'src/app/data';
+import { IInventory } from 'src/app/models/inventory.interface';
+import { InventoryService } from 'src/app/services/inventory.service';
 @Component({
   selector: 'app-rental-page',
   templateUrl: './rental.page.html',
@@ -10,17 +15,29 @@ import { STATIC } from 'src/app/data';
 export class RentalPage implements OnInit {
   public rentalForm: FormGroup;
   public validation_messages = {
+    bike: [],
+    rentDate: [],
     fullname: [],
     email: [],
     phone: [],
   };
-
-  @Output() submitForm = new EventEmitter();
+  public initDate: string = new Date().toISOString();
+  public inventoryList: Array<IInventory> = [];
+  private inventorySubscription$: Subscription = null;
+  private bikeSelected: object = null;
 
   constructor(
     private formBuilder: FormBuilder,
-    private navCtrl: NavController
-  ) {}
+    private navCtrl: NavController,
+    private inventoryService: InventoryService,
+    private modalCtrl: ModalController
+  ) {
+    this.inventorySubscription$ = this.inventoryService.inventory$.subscribe(
+      (items) => {
+        this.inventoryList = items;
+      }
+    );
+  }
 
   ngOnInit() {
     this.initializeForm();
@@ -33,36 +50,39 @@ export class RentalPage implements OnInit {
         PHONE_REGEXP: regexPhone,
         FULLNAME_REGEXP: regexFullName,
       },
-      ERROR_MESSAGE: { NAME, EMAIL, PHONE },
+      ERROR_MESSAGE: { BIKE, DATE, EMAIL, PHONE, FULLNAME },
     } = STATIC;
 
     this.validation_messages = {
-      fullname: NAME,
+      bike: BIKE,
+      rentDate: DATE,
+      fullname: FULLNAME,
       email: EMAIL,
       phone: PHONE,
     };
 
     this.rentalForm = this.formBuilder.group({
+      bike: ['', Validators.compose([Validators.required])],
+      rentDate: ['', Validators.compose([Validators.required])],
       fullname: [
-        'wilfrido bonett',
+        '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(30),
           Validators.pattern(regexFullName),
+          Validators.minLength(10),
+          Validators.maxLength(50),
         ]),
       ],
       phone: [
-        '+2332323232',
+        '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(30),
           Validators.pattern(regexPhone),
+          Validators.minLength(11),
         ]),
       ],
       email: [
-        'wbonett10@gmail.com',
+        '',
         Validators.compose([
           Validators.required,
           Validators.minLength(10),
@@ -71,6 +91,34 @@ export class RentalPage implements OnInit {
         ]),
       ],
     });
+
+    this.inventoryService.getInventory();
+  }
+
+  public async selectBikeInformation() {
+    const modal = await this.modalCtrl.create({
+      component: ModalOptionsComponent,
+      backdropDismiss: true,
+      cssClass: 'select-wide large',
+      swipeToClose: true,
+      componentProps: {
+        title: 'Selecciona una Bicicleta',
+        search: true,
+        source: this.inventoryList,
+        type: 'radios',
+      },
+    });
+    modal.onDidDismiss().then((res: any) => {
+      const {
+        data: { id },
+      } = res;
+      if (id !== '') {
+        const bike = this.inventoryList.filter((item) => item.id === id);
+        this.rentalForm.get('bike').setValue(bike[bike.length - 1].title);
+        this.bikeSelected = res.data;
+      }
+    });
+    await modal.present();
   }
 
   get form() {
@@ -108,5 +156,9 @@ export class RentalPage implements OnInit {
       }).catch((error) => {
         this._alertService.createAlertPayload('Ops!', 'iconError', 'No es posible iniciar sesión, verifica tus credenciales', '');
       });; */
+  }
+
+  ngOnDestroy() {
+    this.inventorySubscription$.unsubscribe();
   }
 }
