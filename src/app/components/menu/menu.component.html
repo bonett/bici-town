@@ -1,0 +1,25 @@
+<ion-menu
+  menuId="main-menu"
+  contentId="main"
+>
+  <ion-content>
+    <div class="menu-header-bg"></div>
+    <app-avatar
+      [sourceName]="userName"
+      [sourcePhotoUrl]="userPhoto"
+      [sourceRole]="userRole"
+    ></app-avatar>
+    <ion-list
+      class="menu-items"
+      lines="none"
+    >
+      <ion-item
+        *ngFor="let item of pages"
+        menu="main-menu"
+        (click)="navCtrl.navigateRoot(item.pageName)"
+      >
+        <ion-icon name={{item.icon}}></ion-icon> {{item.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
