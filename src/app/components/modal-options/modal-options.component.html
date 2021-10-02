@@ -1,0 +1,81 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  [scrollEvents]="false"
+  mode="ios"
+>
+  <ion-row
+    *ngIf="search"
+    class="search"
+  >
+    <ion-col
+      size="12"
+      class="search-wrapper"
+    >
+      <ion-searchbar
+        placeholder="Buscar"
+        showCancelButton="never"
+        (ionChange)="searchItem($event)"
+        mode="ios"
+      ></ion-searchbar>
+    </ion-col>
+  </ion-row>
+
+  <ion-list *ngIf="type ==='radios'">
+    <ion-radio-group (ionChange)="radioSelect($event)">
+      <ion-item *ngFor="let item of dataList">
+        <ion-label>{{item.title}}</ion-label>
+        <ion-radio value={{item.id}}></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-list *ngIf="type ==='items'">
+    <ion-item
+      lines="full"
+      *ngFor="let item of dataList"
+      (click)="itemSelect(item.id)"
+    >
+      <ion-label>{{item.title}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-row>
+    <ion-col
+      size="12"
+      class="buttons"
+    >
+      <div class="item">
+        <a
+          color="
+        tertiary"
+          expand="block"
+          fill="outline"
+          (click)="closeModal()"
+        >
+          Cancelar
+        </a>
+      </div>
+      <div
+        class="item"
+        *ngIf="type !=='items'"
+      >
+        <ion-button
+          color="tertiary"
+          expand="block"
+          [disabled]="!itemSelected"
+          (click)="confirmModal()"
+        >
+          Aceptar
+        </ion-button>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-footer>

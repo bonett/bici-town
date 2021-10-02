@@ -1,17 +1,14 @@
 <ion-header>
   <ion-toolbar mode="ios">
     <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
+      <ion-back-button
+        text="Atras"
+        defaultHref="/"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Historial
+      Rentar Bici
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-icon
-        slot="icon-only"
-        name="paper-plane-outline"
-      ></ion-icon>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,21 +17,153 @@
   <ion-grid class="ion-padding">
     <ion-row>
       <ion-col size="12">
-        rental works!
+
+        <form
+          class="form"
+          [formGroup]="rentalForm"
+          (ngSubmit)="submitRentalForm(rentalForm.value)"
+        >
+          <ion-row>
+
+            <ion-col
+              size="12"
+              class="form-input"
+            >
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Tipo de Bibicleta:</h6>
+              </ion-label>
+              <ion-input
+                formControlName="bike"
+                type="text"
+                name="bike"
+                mode="ios"
+                placeholder="Selecciona tu bicicleta"
+                (click)="selectBikeInformation()"
+                readonly
+                required
+              >
+              </ion-input>
+
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.bike">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('bike').hasError(validation.type) && (rentalForm.get('bike').dirty || rentalForm.get('bike').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Fecha para Rentar:</h6>
+              </ion-label>
+
+              <ion-datetime
+                formControlName="rentDate"
+                display-timezone="utc"
+                mode="ios"
+                min="2021-01"
+                max="2022"
+                placeholder="Selecciona fecha de alquiler"
+                required="true"
+              ></ion-datetime>
+
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.rentDate">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('rentDate').hasError(validation.type) && (rentalForm.get('rentDate').dirty || rentalForm.get('rentDate').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Teléfono de contácto:</h6>
+              </ion-label>
+              <ion-input
+                formControlName="phone"
+                name="phone"
+                mode="ios"
+                mask="separator"
+                type="phone"
+                placeholder="Ingresa teléfono de contacto"
+                required="true"
+              ></ion-input>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.phone">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('phone').hasError(validation.type) && (rentalForm.get('phone').dirty || rentalForm.get('phone').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+
+            <ion-col size="12">
+              <ion-label
+                position="stacked"
+                class="label-stacked"
+              >
+                <h6>Email de contácto:</h6>
+              </ion-label>
+              <ion-input
+                formControlName="email"
+                name="email"
+                mode="ios"
+                type="email"
+                placeholder="Ingresa email de contácto"
+                required="true"
+              ></ion-input>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.email">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('email').hasError(validation.type) && (rentalForm.get('email').dirty || rentalForm.get('email').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+
+
+          </ion-row>
+
+          <ion-row>
+            <ion-col
+              size="12"
+              class="form-input"
+            >
+              <ion-button
+                expand="block"
+                mode="ios"
+                color="tertiary"
+                type="submit"
+                [disabled]="!rentalForm.valid"
+              >Guardar Registro</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <ion-fab
-    vertical="bottom"
-    horizontal="end"
-    slot="fixed"
-  >
-    <ion-fab-button
-      color="tertiary"
-      routerLink="/rental"
-    >
-      <ion-icon name="bicycle-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>

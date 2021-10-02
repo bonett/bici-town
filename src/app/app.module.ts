@@ -8,13 +8,13 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-
 import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
 import { AvatarComponent } from './components/commons/avatar/avatar.component';
+import { StorageService } from './services/storage.service';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, AvatarComponent],
@@ -31,6 +31,7 @@ import { AvatarComponent } from './components/commons/avatar/avatar.component';
   providers: [
     StatusBar,
     SplashScreen,
+    StorageService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

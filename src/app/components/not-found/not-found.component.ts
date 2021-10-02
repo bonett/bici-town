@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-not-found',
@@ -6,9 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./not-found.component.scss'],
 })
 export class NotFoundComponent implements OnInit {
+  public errMsg: string = '';
 
-  constructor() { }
+  @Input() sourceMessage: string = '';
 
-  ngOnInit() {}
+  constructor() {}
 
+  ngOnInit() {
+    this.setErrorMessage(this.sourceMessage);
+  }
+
+  private setErrorMessage(message: string): void {
+    this.errMsg = message;
+  }
 }

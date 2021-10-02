@@ -17,6 +17,11 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'rental',
+    loadChildren: () =>
+      import('./modules/rental/rental.module').then((m) => m.RentalPageModule),
+  },
+  {
     path: '',
     redirectTo: 'inventory',
     pathMatch: 'full',

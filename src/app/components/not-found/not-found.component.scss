@@ -1,0 +1,15 @@
+.error {
+  &_wrapper {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    ion-label {
+      p {
+        font-weight: 300;
+      }
+    }
+  }
+}

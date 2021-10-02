@@ -1,0 +1,22 @@
+ion-label {
+  h6 {
+    margin-bottom: 8px;
+    font-size: 13px !important;
+    font-weight: 500;
+    color: var(--ion-color-dark-shade);
+  }
+}
+
+.validation {
+  &-errors {
+    padding: 10px 6px 16px 6px;
+
+    .error {
+      &-message {
+        color: var(--ion-color-danger);
+        font-size: 12px;
+        font-weight: 300;
+      }
+    }
+  }
+}
