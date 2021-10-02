@@ -1,10 +1,9 @@
 <div class="header-content">
-  <img
-    src={{currentPhoto}}
-    alt="profile"
-  >
+  <ion-avatar>
+    <ion-img [src]="currentPhoto"></ion-img>
+  </ion-avatar>
   <ion-label>
-    <h2>{{currentUser}}</h2>
-    <p>{{currentRole}}</p>
+    <h2 class="name">{{currentUser}}</h2>
+    <p class="role">{{currentRole}}</p>
   </ion-label>
 </div>

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { InventoryService } from 'src/app/services/inventory.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { StorageService } from 'src/app/services/storage.service';
+import { IInventory } from 'src/app/models/inventory.interface';
 
 @Component({
   selector: 'app-inventory-page',
@@ -7,122 +12,43 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./inventory.page.scss'],
 })
 export class InventoryPage implements OnInit {
-  public inventoryList: Array<any> = [
-    {
-      categoryId: 1,
-      id: 1,
-      thumbnail:
-        'https://labicikleta.com/wp-content/uploads/2021/04/i2FOTOS-Ri%CC%81gida-vs-Doble-8.jpg',
-      title: 'Specialized CRX-2',
-      description:
-        'Hermosa bicicleta marce Specialized para disfrutar tus rutas MTB. Talla 29 Pulgadas doble suspensión. Suspensión Fox y más',
-      atCreated: '01/10/2021',
-      author: 'Alejandra palacio',
-      location: 'madrid',
-      address: 'Calle real diagonal al bar de moe',
-      phone: '38932893',
-      rate: 4.5,
-      color: 'Negro',
-      year: 2021,
-      size: 'S',
-    },
-    {
-      categoryId: 1,
-      id: 1,
-      thumbnail:
-        'https://as.com/deportes_accion/imagenes/2020/02/17/reportajes/1581954305_702109_1581955981_noticiareportajes_grande.jpg',
-      title: 'Specialized Golden Boy',
-      description:
-        'Hermosa bicicleta marce Specialized para disfrutar tus rutas MTB. Talla 29 Pulgadas doble suspensión. Suspensión Fox y más',
-      atCreated: '01/10/2021',
-      author: 'Alejandra palacio',
-      location: 'madrid',
-      address: 'Calle real diagonal al bar de moe',
-      phone: '38932893',
-      rate: 4.5,
-      color: 'Negro',
-      year: 2021,
-      size: 'XL',
-    },
-    {
-      categoryId: 1,
-      id: 1,
-      thumbnail:
-        'https://labicikleta.com/wp-content/uploads/2021/04/i2FOTOS-Ri%CC%81gida-vs-Doble-12.jpg',
-      title: 'Scott Lite 3',
-      description:
-        'Hermosa bicicleta marce Specialized para disfrutar tus rutas MTB. Talla 29 Pulgadas doble suspensión. Suspensión Fox y más',
-      atCreated: '01/10/2021',
-      author: 'Alejandra palacio',
-      location: 'madrid',
-      address: 'Calle real diagonal al bar de moe',
-      phone: '38932893',
-      rate: 4.5,
-      color: 'Negro',
-      year: 2021,
-      size: 'XL',
-    },
-    {
-      categoryId: 1,
-      id: 1,
-      thumbnail:
-        'https://trek.scene7.com/is/image/TrekBicycleProducts/DomaneSLR9eTap_21_33300_A_Portrait?$responsive-pjpg$&cache=on,on&wid=1920&hei=1440',
-      title: 'Trek Marlin R2',
-      description:
-        'Hermosa bicicleta marce Specialized para disfrutar tus rutas MTB. Talla 29 Pulgadas doble suspensión. Suspensión Fox y más',
-      atCreated: '01/10/2021',
-      author: 'Alejandra palacio',
-      location: 'madrid',
-      address: 'Calle real diagonal al bar de moe',
-      phone: '38932893',
-      rate: 4.5,
-      color: 'Negro',
-      year: 2021,
-      size: 'M',
-    },
-    {
-      categoryId: 1,
-      id: 1,
-      thumbnail:
-        'https://labicikleta.com/wp-content/uploads/2021/04/i2FOTOS-Ri%CC%81gida-vs-Doble-1.jpg',
-      title: 'Specialized Evox',
-      description:
-        'Hermosa bicicleta marce Specialized para disfrutar tus rutas MTB. Talla 29 Pulgadas doble suspensión. Suspensión Fox y más',
-      atCreated: '01/10/2021',
-      author: 'Alejandra palacio',
-      location: 'madrid',
-      address: 'Calle real diagonal al bar de moe',
-      phone: '38932893',
-      rate: 4.5,
-      color: 'Negro',
-      year: 2021,
-      size: 'XL',
-    },
-    {
-      categoryId: 1,
-      id: 2,
-      thumbnail:
-        'https://trek.scene7.com/is/image/TrekBicycleProducts/DomaneSLR7Etap_21_31050_B_Portrait?$responsive-pjpg$&cache=on,on&wid=1920&hei=1440',
-      title: 'Trek Ruta 12',
-      description:
-        'Rento bicicleta Trek. Talla L Una suspensión. Suspensión Brembo',
-      atCreated: '11/06/2021',
-      author: 'Andrea Gomez',
-      location: 'Barcelona',
-      address: 'Calle barcelona # 12 - 39',
-      phone: '38932893',
-      rate: 4,
-      color: 'Blanco',
-      year: 2020,
-      size: 'L',
-    },
-  ];
-  constructor(private navCtrl: NavController) {}
+  public inventoryList: Array<IInventory> = [];
 
-  ngOnInit() {}
+  private inventorySubscription$: Subscription = null;
+  private categorySubscription$: Subscription = null;
+
+  constructor(
+    private navCtrl: NavController,
+    private storageService: StorageService,
+    private inventoryService: InventoryService,
+    private categoryService: CategoryService
+  ) {
+    this.inventorySubscription$ = this.inventoryService.inventory$.subscribe(
+      (items) => {
+        this.inventoryList = items;
+      }
+    );
+
+    this.categorySubscription$ = this.categoryService.category$.subscribe(
+      (categories) => {
+        console.log(categories);
+      }
+    );
+  }
+
+  ngOnInit() {
+    this.inventoryService.getInventory();
+    this.categoryService.getCategories();
+  }
 
   public showItemDetails(item: any) {
     const { id } = item;
+    this.storageService.set('data_selected', item);
     this.navCtrl.navigateForward(`inventory/details/${id}`);
+  }
+
+  ngOnDestroy() {
+    this.inventorySubscription$.unsubscribe();
+    this.categorySubscription$.unsubscribe();
   }
 }
