@@ -1,0 +1,16 @@
+<ion-grid
+  class="custom-skeleton"
+  *ngIf="showLoading"
+>
+
+  <ion-row>
+    <ion-col size="12">
+      <ion-skeleton-text
+        *ngFor="let i of [1, 2, 3, 4]"
+        animated
+        style="height: 180px; border-radius: 20px; margin: 20px 0"
+      ></ion-skeleton-text>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>

@@ -13,7 +13,7 @@ import { IInventory } from 'src/app/models/inventory.interface';
 })
 export class InventoryPage implements OnInit {
   public inventoryList: Array<IInventory> = [];
-
+  public isLoading: boolean = true;
   private inventorySubscription$: Subscription = null;
   private categorySubscription$: Subscription = null;
 
@@ -26,6 +26,7 @@ export class InventoryPage implements OnInit {
     this.inventorySubscription$ = this.inventoryService.inventory$.subscribe(
       (items) => {
         this.inventoryList = items;
+        this.handleChangeLoader(false);
       }
     );
 
@@ -37,8 +38,17 @@ export class InventoryPage implements OnInit {
   }
 
   ngOnInit() {
+    this.initializeData();
+  }
+
+  private initializeData(): void {
+    this.handleChangeLoader(true);
     this.inventoryService.getInventory();
     this.categoryService.getCategories();
+  }
+
+  private handleChangeLoader(status: boolean): void {
+    this.isLoading = status;
   }
 
   public showItemDetails(item: any) {
