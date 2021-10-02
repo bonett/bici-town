@@ -20,11 +20,15 @@ export class DetailsPage implements OnInit {
   }
 
   async getItemSelected() {
-    this.item = await this.storageService.get('data_selected');
-    console.log(this.item);
+    this.item = await this.storageService.get('bike_details');
+  }
+
+  public newRental(id: string): void {
+    this.storageService.set('bike_selected', this.item);
+    this.navCtrl.navigateForward(`/rental/new/${id}`);
   }
 
   ngDestroy() {
-    this.storageService.remove('data_selected');
+    this.storageService.remove('bike_details');
   }
 }

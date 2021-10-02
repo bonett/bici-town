@@ -7,6 +7,7 @@ import { ModalOptionsComponent } from 'src/app/components/modal-options/modal-op
 import { STATIC } from 'src/app/data';
 import { IInventory } from 'src/app/models/inventory.interface';
 import { InventoryService } from 'src/app/services/inventory.service';
+import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-rental-page',
   templateUrl: './rental.page.html',
@@ -29,6 +30,7 @@ export class RentalPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
+    private storageService: StorageService,
     private inventoryService: InventoryService,
     private modalCtrl: ModalController
   ) {
@@ -41,6 +43,12 @@ export class RentalPage implements OnInit {
 
   ngOnInit() {
     this.initializeForm();
+
+    this.getItemSelected();
+  }
+
+  async getItemSelected() {
+    this.bikeSelected = await this.storageService.get('bike_details');
   }
 
   private initializeForm(): void {
@@ -160,5 +168,6 @@ export class RentalPage implements OnInit {
 
   ngOnDestroy() {
     this.inventorySubscription$.unsubscribe();
+    this.storageService.remove('bike_selected');
   }
 }

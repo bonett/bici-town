@@ -53,7 +53,7 @@ export class InventoryPage implements OnInit {
 
   public showItemDetails(item: any) {
     const { id } = item;
-    this.storageService.set('data_selected', item);
+    this.storageService.set('bike_details', item);
     this.navCtrl.navigateForward(`inventory/details/${id}`);
   }
 
