@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { DetailsPage } from './details/details.page';
 
-import { InventoryComponent } from './inventory.component';
+import { InventoryPage } from './inventory.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: InventoryComponent,
+    component: InventoryPage,
+  },
+  {
+    path: 'details/:id',
+    component: DetailsPage,
   },
 ];
 

@@ -3,11 +3,6 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'rental',
-    loadChildren: () =>
-      import('./modules/rental/rental.module').then((m) => m.RentalPageModule),
-  },
-  {
     path: 'inventory',
     loadChildren: () =>
       import('./modules/inventory/inventory.module').then(
@@ -15,8 +10,15 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'historial',
+    loadChildren: () =>
+      import('./modules/historial/historial.module').then(
+        (m) => m.HistorialPageModule
+      ),
+  },
+  {
     path: '',
-    redirectTo: 'rental',
+    redirectTo: 'inventory',
     pathMatch: 'full',
   },
 ];

@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,292 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion {
+  &-content {
+    --background: var(--ion-color-white) !important;
+  }
+
+  &-grid {
+    padding-top: 0 !important;
+  }
+
+  &-card {
+    border-radius: 20px !important;
+    box-shadow: 0 4px 8px var(--ion-color-light-shade);
+    margin: 40px 0 !important;
+    padding: 0 !important;
+
+    h1 {
+      font-size: 34px !important;
+    }
+
+    h2 {
+      font-size: 28px !important;
+    }
+
+    h3 {
+      font-size: 24px !important;
+    }
+
+    h4 {
+      font-size: 20px !important;
+    }
+
+    h5 {
+      font-size: 18px !important;
+    }
+
+    img {
+      border-radius: 20px;
+      height: auto !important;
+      width: auto !important;
+      border: none !important;
+    }
+  }
+
+  &-header {
+    ion-toolbar {
+      align-items: center;
+      --background: var(--ion-color-white) !important;
+      --border-width: 0 !important;
+      display: flex;
+      min-height: 85px;
+      padding: 0 10px;
+
+      ion-back-button {
+        font-size: 0.86em;
+      }
+
+      ion-title {
+        /* color: var(--ion-color-white); */
+        font-size: 18px !important;
+        font-weight: 600;
+        opacity: 1 !important;
+        padding: 0 40px;
+      }
+
+      button {
+        display: none !important;
+      }
+    }
+  }
+
+  &-input {
+    --background: var(--dark) !important;
+    --padding-start: 20px !important;
+    --color: var(--text) !important;
+    font-size: 0.9em !important;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+
+    &[type="hidden"] {
+      display: none;
+    }
+
+    &[aria-disabled="true"] {
+      --background: var(--white) !important;
+      opacity: 1 !important;
+      border: none !important;
+
+      input {
+        color: white !important;
+        opacity: 1 !important;
+        padding: 0 !important;
+        height: 24px;
+      }
+    }
+
+    input {
+      height: 48px;
+    }
+  }
+
+  &-label {
+    color: var(--dark) !important;
+    font-size: 0.7em !important;
+    font-weight: 600 !important;
+    text-transform: uppercase;
+
+    &.required::after {
+      content: "*";
+      color: var(--ion-color-danger);
+      width: 6px;
+      height: 6px;
+      margin: 0 3px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    i {
+      font-size: 14px !important;
+      margin: 0 6px 0 0;
+    }
+
+    &.success {
+      color: var(--ion-color-success);
+    }
+
+    &.error {
+      color: var(--ion-color-danger);
+    }
+  }
+
+  &-modal {
+    padding: 0 7px;
+
+    .modal-wrapper {
+      border-radius: 10px !important;
+    }
+  }
+
+  &-toast {
+    --border-radius: 8px;
+
+    &.ion-color-warning {
+      color: var(--white);
+    }
+  }
+
+  &-toggle {
+    transform: scale(0.6);
+    margin: -6px 2px;
+  }
+
+  &-toolbar {
+    min-height: 51px;
+    max-height: 51px;
+  }
+
+  &-searchbar {
+    --background: var(--dark) !important;
+    --padding-start: 20px !important;
+    --color: var(--text) !important;
+    font-size: 0.9em !important;
+    border: 1px solid #262626 !important;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px #171717 !important;
+    height: 46px !important;
+    padding: 0 !important;
+
+    .searchbar-input-container {
+      height: 46px !important;
+
+      .searchbar-search-icon {
+        color: var(--gray-scale-2) !important;
+        margin-left: 6px !important;
+        width: 22px !important;
+      }
+
+      input {
+        --background: var(--dark) !important;
+        border-radius: 4px !important;
+        border: 1px solid #262626 !important;
+        --placeholder-color: var(--text);
+        --color: var(--text);
+        font-size: 1em !important;
+        padding-left: 42px !important;
+        height: 46px !important;
+
+        &:focus {
+          border: 1px solid #262626 !important;
+          --background: var(--dark) !important;
+        }
+      }
+    }
+
+    .searchbar-clear-button.sc-ion-searchbar-ios {
+      right: 6px !important;
+    }
+  }
+
+  &-segment {
+    &.ion-color-success {
+      min-height: 48px;
+      max-height: 48px;
+
+      ion-segment-button {
+        min-height: 48px;
+        max-height: 48px;
+        border-bottom: 4px solid transparent;
+        background: var(--seaweed) !important;
+
+        &.segment-button-checked {
+          border-bottom: 4px solid var(--white);
+
+          ion-label {
+            opacity: 1;
+          }
+        }
+
+        ion-label {
+          color: var(--white);
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &.ion-color-turquoise {
+      min-height: 48px;
+      max-height: 48px;
+
+      ion-segment-button {
+        min-height: 48px;
+        max-height: 48px;
+        border-bottom: 4px solid transparent;
+        background: var(--turquoise) !important;
+
+        &.segment-button-checked {
+          border-bottom: 4px solid var(--white);
+
+          ion-label {
+            opacity: 1;
+          }
+        }
+
+        ion-label {
+          color: var(--white);
+          opacity: 0.5;
+        }
+      }
+    }
+
+    &.ion-color-orangeYellow {
+      min-height: 48px;
+      max-height: 48px;
+
+      ion-segment-button {
+        min-height: 48px;
+        max-height: 48px;
+        border-bottom: 4px solid transparent;
+        background: var(--orangeYellow) !important;
+
+        &.segment-button-checked {
+          border-bottom: 4px solid var(--white);
+
+          ion-label {
+            opacity: 1;
+          }
+        }
+
+        ion-label {
+          color: var(--white);
+          opacity: 0.5;
+        }
+      }
+    }
+
+    ion-segment-button {
+      border-radius: 0;
+      border: none;
+
+      ion-label {
+        font-family: "Lato-Bold";
+        font-size: 12px;
+        margin: 0;
+        letter-spacing: 0;
+      }
+    }
+  }
+}
