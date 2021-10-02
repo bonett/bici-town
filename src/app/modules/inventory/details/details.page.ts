@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -9,7 +10,10 @@ import { StorageService } from 'src/app/services/storage.service';
 export class DetailsPage implements OnInit {
   public item: object = {};
 
-  constructor(private storageService: StorageService) {}
+  constructor(
+    private navCtrl: NavController,
+    private storageService: StorageService
+  ) {}
 
   ngOnInit() {
     this.getItemSelected();

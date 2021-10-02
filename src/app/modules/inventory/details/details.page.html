@@ -73,7 +73,11 @@
       </ion-col>
 
       <ion-col size="12">
-        <ion-button color="tertiary">Rentar Bici</ion-button>
+        <ion-button
+          expand="block"
+          color="tertiary"
+          (click)="navCtrl.navigateForward('/rental')"
+        >La quiero !</ion-button>
       </ion-col>
 
     </ion-row>

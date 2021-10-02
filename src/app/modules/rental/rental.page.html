@@ -1,17 +1,14 @@
 <ion-header>
   <ion-toolbar mode="ios">
     <ion-buttons slot="start">
-      <ion-menu-button menu="main-menu"></ion-menu-button>
+      <ion-back-button
+        text="Volver"
+        defaultHref="/"
+      ></ion-back-button>
     </ion-buttons>
     <ion-title>
-      Historial
+      Formulario de Renta
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-icon
-        slot="icon-only"
-        name="paper-plane-outline"
-      ></ion-icon>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -20,21 +17,140 @@
   <ion-grid class="ion-padding">
     <ion-row>
       <ion-col size="12">
-        rental works!
+        <form
+          class="form"
+          [formGroup]="rentalForm"
+          (ngSubmit)="onSubmit(rentalForm.value)"
+        >
+          <ion-row>
+
+            <ion-col
+              size="12"
+              class="form-input"
+            >
+              <ion-input
+                formControlName="fullname"
+                name="fullname"
+                mode="ios"
+                type="text"
+                placeholder="Ingresa nombre completo"
+                required="true"
+              ></ion-input>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.fullname">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('fullname').hasError(validation.type) && (rentalForm.get('fullname').dirty || rentalForm.get('fullname').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+
+            <ion-col
+              size="12"
+              class="form-input"
+            >
+              <ion-input
+                formControlName="phone"
+                name="phone"
+                mode="ios"
+                type="phone"
+                placeholder="Ingresa teléfono de contácto"
+                required="true"
+              ></ion-input>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.phone">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('phone').hasError(validation.type) && (rentalForm.get('phone').dirty || rentalForm.get('phone').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+
+            <ion-col
+              size="12"
+              class="form-input"
+            >
+              <ion-input
+                formControlName="email"
+                name="email"
+                mode="ios"
+                type="email"
+                placeholder="Ingresa tu correo electrónico"
+                required="true"
+              ></ion-input>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.email">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('email').hasError(validation.type) && (rentalForm.get('email').dirty || rentalForm.get('email').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+          </ion-row>
+
+          <!--  <ion-row>
+            <ion-col
+              size="12"
+              class="form-input"
+            >
+              <ion-input
+                formControlName="password"
+                name="password"
+                mode="ios"
+                type="password"
+                placeholder="Ingresa tu contraseña"
+                required="true"
+              ></ion-input>
+              <div class="validation-errors">
+                <ng-container *ngFor="let validation of validation_messages.password">
+                  <div
+                    class="error-message"
+                    *ngIf="rentalForm.get('password').hasError(validation.type) && (rentalForm.get('password').dirty || rentalForm.get('password').touched)"
+                  >
+                    {{ validation.message }}
+                  </div>
+                </ng-container>
+              </div>
+            </ion-col>
+          </ion-row> -->
+
+          <ion-row>
+            <ion-col
+              size="12"
+              class="form-input"
+            >
+              <ion-button
+                expand="block"
+                mode="ios"
+                color="tertiary"
+                type="submit"
+                [disabled]="!rentalForm.valid"
+              >Guardar Registro</ion-button>
+            </ion-col>
+          </ion-row>
+
+          <!--     <ion-row>
+            <ion-col
+              size="12"
+              class="form-input flex-row ion-justify-content-center"
+            >
+              <ion-icon name="logo-facebook"></ion-icon>
+              <ion-icon name="logo-google"></ion-icon>
+              <ion-icon name="logo-instagram"></ion-icon>
+            </ion-col>
+          </ion-row>
+ -->
+        </form>
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <ion-fab
-    vertical="bottom"
-    horizontal="end"
-    slot="fixed"
-  >
-    <ion-fab-button
-      color="tertiary"
-      routerLink="/rental"
-    >
-      <ion-icon name="bicycle-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 </ion-content>
