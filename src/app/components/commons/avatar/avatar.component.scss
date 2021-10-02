@@ -16,12 +16,13 @@
     width: 80px;
   }
 
-  h2 {
+  .name {
     color: var(--ion-color-white);
     font-weight: 400;
+    margin-top: 24px;
   }
 
-  p {
+  .role {
     color: var(--ion-color-light);
     font-size: 13px;
     font-weight: 400;

@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import {
-  AlertController,
-  ModalController,
-  NavController,
-} from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ModalOptionsComponent } from 'src/app/components/modal-options/modal-options.component';
 import { STATIC } from 'src/app/data';
@@ -148,7 +144,7 @@ export class RentalPage implements OnInit {
 
   private findItemById(id) {
     const result = this.inventoryList.filter((item) => item.id === id);
-    return result[0];
+    return result && result[result.length - 1];
   }
 
   public submitRentalForm(form: any): void {

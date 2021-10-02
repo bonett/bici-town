@@ -26,7 +26,7 @@ export class RentalService {
     return this.reference;
   }
 
-  public getInventory() {
+  public getHistorial() {
     this.getCollection()
       .snapshotChanges()
       .pipe(
