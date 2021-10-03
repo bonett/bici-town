@@ -1,0 +1,19 @@
+<div class="chip-wrapper">
+  <div
+    class="chip"
+    (click)="handleChipClicked('ALL')"
+    [ngClass]="{'selected':chipSelected === 'ALL'}"
+  >
+    <label>Todos</label>
+  </div>
+  <div
+    class="chip"
+    *ngFor="let item of categoryList"
+    (click)="handleChipClicked(item.category)"
+    [ngClass]="{'selected':chipSelected === item.category}"
+  >
+    <label>
+      {{item.category}}
+    </label>
+  </div>
+</div>
