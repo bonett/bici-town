@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "bici-town",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
