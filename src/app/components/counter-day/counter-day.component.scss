@@ -1,0 +1,13 @@
+.counter {
+  &-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    ion-button {
+      height: 44px !important;
+      width: 44px !important;
+    }
+  }
+}

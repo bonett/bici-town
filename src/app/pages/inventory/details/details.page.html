@@ -24,9 +24,22 @@
           <ion-img [src]="item.thumbnail"></ion-img>
         </ion-thumbnail>
       </ion-col>
-      <ion-col size="12">
+
+      <ion-col size="8">
+        <ion-text color="dark">
+          <h6>Detalle</h6>
+        </ion-text>
         <ion-text color="dark">
           <h1>{{item.title}}</h1>
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="4">
+        <ion-text color="dark">
+          <h6>Precio por día</h6>
+        </ion-text>
+        <ion-text color="dark">
+          <h1>{{item.price | currency:'EUR':true}}</h1>
         </ion-text>
       </ion-col>
 
@@ -40,27 +53,23 @@
         </ion-text>
       </ion-col>
 
-      <ion-col
-        size="12"
-        *ngIf="item && item.rentDate"
-      >
+      <ion-col size="5">
         <ion-text color="dark">
-          <h6>Fecha de alquiler</h6>
+          <h6>Tipo de Bicicleta</h6>
         </ion-text>
         <ion-text color="medium">
           <p>
             <ion-icon
-              name="calendar"
-              color="tertiary"
-            ></ion-icon>{{item.rentDate}}
+              *ngIf="item.type === 'Premium'"
+              name="star"
+              color="warning"
+            ></ion-icon>{{item.type}}
           </p>
         </ion-text>
       </ion-col>
 
-      <ion-col
-        size="6"
-        *ngIf="item && !item.rentDate"
-      >
+
+      <ion-col size="4">
         <ion-text color="dark">
           <h6>Talla</h6>
         </ion-text>
@@ -69,10 +78,7 @@
         </ion-text>
       </ion-col>
 
-      <ion-col
-        size="6"
-        *ngIf="item && !item.rentDate"
-      >
+      <ion-col size="3">
         <ion-text color="dark">
           <h6>Colores disponibles</h6>
         </ion-text>
@@ -86,13 +92,13 @@
 
       <ion-col size="12">
         <ion-text color="dark">
-          <h6>Disponible en tiendas</h6>
+          <h6>Disponibilidad inmediata para</h6>
         </ion-text>
         <ion-text color="medium">
           <p>
             <ion-icon
               name="location"
-              color="tertiary"
+              color="danger"
             ></ion-icon>{{item.location}}
           </p>
         </ion-text>

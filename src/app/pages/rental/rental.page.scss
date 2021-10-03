@@ -1,9 +1,11 @@
-ion-label {
-  h6 {
-    margin-bottom: 8px;
-    font-size: 13px !important;
-    font-weight: 500;
-    color: var(--ion-color-dark-shade);
+ion {
+  &-label {
+    h6 {
+      margin-bottom: 8px;
+      font-size: 13px !important;
+      font-weight: 500;
+      color: var(--ion-color-dark-shade);
+    }
   }
 }
 

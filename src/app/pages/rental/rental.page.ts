@@ -20,14 +20,13 @@ export class RentalPage implements OnInit {
   public rentalForm: FormGroup;
   public validation_messages = {
     bike: [],
-    rentDate: [],
-    email: [],
-    phone: [],
   };
-  public initDate: string = new Date().toISOString();
+  private initDate: string = new Date().toISOString();
   public inventoryList: Array<IInventory> = [];
   private inventorySubscription$: Subscription = null;
-  private bikeSelected: any;
+  public bikeSelected: IInventory = null;
+  public daySelected: number = 0;
+  public totalAmount: number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,9 +45,15 @@ export class RentalPage implements OnInit {
     );
   }
 
-  ngOnInit() {
-    this.initializeForm();
-    this.getItemSelected();
+  async ngOnInit() {
+    await this.initializeForm();
+    await this.getItemSelected();
+    await this.setInitialPayments();
+    await this.validateBikeSelected();
+  }
+
+  async getItemSelected() {
+    this.bikeSelected = await this.storageService.get('bike_selected');
   }
 
   private validateBikeSelected() {
@@ -58,44 +63,18 @@ export class RentalPage implements OnInit {
     });
   }
 
-  async getItemSelected() {
-    this.bikeSelected = await this.storageService.get('bike_selected');
-    this.validateBikeSelected();
-  }
-
   private initializeForm(): void {
     const {
-      REGEX: { EMAIL_REGEXP: regexEmail, PHONE_REGEXP: regexPhone },
-      ERROR_MESSAGE: { BIKE, DATE, EMAIL, PHONE },
+      ERROR_MESSAGE: { BIKE },
     } = STATIC;
 
     this.validation_messages = {
       bike: BIKE,
-      rentDate: DATE,
-      email: EMAIL,
-      phone: PHONE,
     };
 
     this.rentalForm = this.formBuilder.group({
       bike: ['', Validators.compose([Validators.required])],
-      rentDate: ['', Validators.compose([Validators.required])],
-      phone: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.pattern(regexPhone),
-          Validators.minLength(11),
-        ]),
-      ],
-      email: [
-        '',
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(10),
-          Validators.maxLength(50),
-          Validators.pattern(regexEmail),
-        ]),
-      ],
+      days: [0, Validators.compose([Validators.required])],
     });
 
     this.inventoryService.getInventory();
@@ -103,8 +82,105 @@ export class RentalPage implements OnInit {
 
   private updateRentFormValues(id: string): void {
     const getTitle = id !== '0' ? this.bikeSelected.title : '';
-
     this.rentalForm.get('bike').setValue(getTitle);
+  }
+
+  public increaseDays(): void {
+    this.calculatePriceByCategory('INCREASE', this.bikeSelected.category);
+  }
+
+  public decreaseDays(): void {
+    this.calculatePriceByCategory('DECREASE', this.bikeSelected.category);
+  }
+
+  private calculatePriceByCategory(operator: string, type: string): void {
+    switch (type) {
+      case 'Eléctricas':
+        this.calculatePriceEBikes(operator);
+        break;
+      case 'Antiguas':
+        this.calculatePriceOldBikes(operator);
+        break;
+      default:
+        this.calculatePriceBasicBikes(operator);
+        break;
+    }
+  }
+
+  private setInitialPayments(): void {
+    const { price } = this.bikeSelected;
+    this.daySelected = 1;
+    this.totalAmount = price;
+  }
+
+  private calculatePriceEBikes(operator: string): void {
+    if (operator === 'INCREASE') {
+      this.daySelected += 1;
+      this.totalAmount = this.bikeSelected.price * this.daySelected;
+    } else {
+      this.daySelected -= 1;
+      this.totalAmount -= this.bikeSelected.price;
+    }
+  }
+
+  private calculatePriceOldBikes(operator: string): void {
+    if (operator === 'INCREASE') {
+      this.daySelected += 1;
+
+      if (this.daySelected < 5) {
+        this.totalAmount = this.bikeSelected.price;
+        return;
+      }
+
+      if (this.daySelected > 5) {
+        this.totalAmount += this.bikeSelected.price;
+        return;
+      }
+    }
+
+    if (operator === 'DECREASE') {
+      this.daySelected -= 1;
+
+      if (this.daySelected > 5) {
+        this.totalAmount -= this.bikeSelected.price;
+        return;
+      }
+
+      if (this.daySelected <= 5) {
+        this.totalAmount = this.bikeSelected.price;
+        return;
+      }
+    }
+  }
+
+  private calculatePriceBasicBikes(operator: string): void {
+    if (operator === 'INCREASE') {
+      this.daySelected += 1;
+
+      if (this.daySelected < 3) {
+        this.totalAmount = this.bikeSelected.price;
+        return;
+      }
+
+      if (this.daySelected > 3) {
+        this.totalAmount += this.bikeSelected.price;
+        return;
+      }
+    }
+
+    if (operator === 'DECREASE') {
+      this.daySelected -= 1;
+
+      if (this.daySelected > 3) {
+        this.totalAmount -= this.bikeSelected.price;
+        return;
+      }
+
+      if (this.daySelected <= 3) {
+        this.totalAmount = this.bikeSelected.price;
+        return;
+      }
+    }
   }
 
   public async selectBikeInformation() {
@@ -123,9 +199,9 @@ export class RentalPage implements OnInit {
     modal.onDidDismiss().then((res: any) => {
       const { id } = res && res.data;
       if (id !== '') {
-        const bike = this.inventoryList.filter((item) => item.id === id);
+        const bike = this.inventoryList.filter((item) => item.key === id);
         this.rentalForm.get('bike').setValue(bike[bike.length - 1].title);
-        this.bikeSelected = this.findItemById(id);
+        this.bikeSelected = bike[bike.length - 1];
       } else {
         this.toastService.presentErrorToast(
           'Es necesario que seleccione una bicicleta para continuar'
@@ -139,13 +215,14 @@ export class RentalPage implements OnInit {
     return this.rentalForm.controls;
   }
 
-  private findItemById(id) {
-    const result = this.inventoryList.filter((item) => item.id === id);
-    return result && result[result.length - 1];
-  }
-
   public submitRentalForm(form: any): void {
-    const { bike, email, phone, rentDate } = form;
+    if (this.daySelected === 0) {
+      this.toastService.presentErrorToast(
+        'Es necesario que seleccione al menos 1 día para continuar'
+      );
+      return;
+    }
+
     const {
       category,
       categoryId,
@@ -160,10 +237,7 @@ export class RentalPage implements OnInit {
     } = this.bikeSelected;
 
     const payload = {
-      bike,
-      email,
-      phone,
-      rentDate: moment(rentDate).format('LL'),
+      rentDate: moment(this.initDate).format('LL'),
       category,
       categoryId,
       color,
@@ -180,7 +254,7 @@ export class RentalPage implements OnInit {
       if (isRegistered) {
         this.toastService.presentSuccessToast(
           `Se ha creado su renta exitosamente para el dia ${moment(
-            rentDate
+            this.initDate
           ).format('LL')}.`
         );
         this.rentalForm.reset();

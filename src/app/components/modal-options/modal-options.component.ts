@@ -23,6 +23,8 @@ export class ModalOptionsComponent implements OnInit {
   }
 
   private initializeData(): void {
+    console.log(this.source);
+
     this.dataList = this.source;
     this.dataListBackup = this.source;
   }
@@ -42,8 +44,8 @@ export class ModalOptionsComponent implements OnInit {
     });
   }
 
-  public itemSelect(id: string): void {
-    this.itemSelected = id;
+  public itemSelect(key: string): void {
+    this.itemSelected = key;
     this.confirmModal();
   }
 
