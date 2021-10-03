@@ -13,8 +13,6 @@ export class ItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(this.sourceItem);
-
     this.item = this.sourceItem;
   }
 }

@@ -26,6 +26,32 @@
     <ion-row>
       <ion-col
         size="12"
+        class="chip-wrapper"
+        *ngIf="!isLoading && inventoryList.length > 0"
+      >
+        <div
+          class="chip"
+          (click)="filterByCategory('ALL')"
+          [ngClass]="{'selected':chipSelected === 'ALL'}"
+        >
+          <label>Todos</label>
+        </div>
+        <div
+          class="chip"
+          *ngFor="let item of categoryList"
+          (click)="filterByCategory(item)"
+          [ngClass]="{'selected':chipSelected === item.category}"
+        >
+          <label>
+            {{item.category}}
+          </label>
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col
+        size="12"
         *ngIf="!isLoading && inventoryList.length > 0"
       >
 
