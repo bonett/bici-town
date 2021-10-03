@@ -2,12 +2,15 @@
   <ion-toolbar mode="ios">
     <ion-buttons slot="start">
       <ion-back-button
-        text="Catalogo"
+        text="Atras"
         defaultHref="/"
       ></ion-back-button>
     </ion-buttons>
-    <ion-title>
-      Detalles
+    <ion-title *ngIf="item && !item.rentDate">
+      Detalle de la Bici
+    </ion-title>
+    <ion-title *ngIf="item && item.rentDate">
+      Detalle del Alquiler
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -37,7 +40,27 @@
         </ion-text>
       </ion-col>
 
-      <ion-col size="6">
+      <ion-col
+        size="12"
+        *ngIf="item && item.rentDate"
+      >
+        <ion-text color="dark">
+          <h6>Fecha de alquiler</h6>
+        </ion-text>
+        <ion-text color="medium">
+          <p>
+            <ion-icon
+              name="calendar"
+              color="tertiary"
+            ></ion-icon>{{item.rentDate}}
+          </p>
+        </ion-text>
+      </ion-col>
+
+      <ion-col
+        size="6"
+        *ngIf="item && !item.rentDate"
+      >
         <ion-text color="dark">
           <h6>Talla</h6>
         </ion-text>
@@ -46,7 +69,10 @@
         </ion-text>
       </ion-col>
 
-      <ion-col size="6">
+      <ion-col
+        size="6"
+        *ngIf="item && !item.rentDate"
+      >
         <ion-text color="dark">
           <h6>Colores disponibles</h6>
         </ion-text>
@@ -74,6 +100,7 @@
 
       <ion-col size="12">
         <ion-button
+          *ngIf="item && !item.rentDate"
           expand="block"
           color="tertiary"
           (click)="newRental(item.id)"

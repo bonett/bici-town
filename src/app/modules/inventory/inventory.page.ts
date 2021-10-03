@@ -12,8 +12,9 @@ import { IInventory } from 'src/app/models/inventory.interface';
   styleUrls: ['./inventory.page.scss'],
 })
 export class InventoryPage implements OnInit {
-  public inventoryList: Array<IInventory> = [];
   public isLoading: boolean = true;
+  public errMsg: string = 'No se encontraron bicicletas disponibles';
+  public inventoryList: Array<IInventory> = [];
   private inventorySubscription$: Subscription = null;
   private categorySubscription$: Subscription = null;
 

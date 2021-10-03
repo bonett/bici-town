@@ -12,6 +12,7 @@ import { DetailsPage } from './details/details.page';
 import { ColorsComponent } from 'src/app/components/commons/colors/colors.component';
 import { LoaderComponent } from 'src/app/components/commons/loader/loader.component';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
+import { RentalService } from 'src/app/services/rental.service';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, InventoryPageRoutingModule],
@@ -23,6 +24,6 @@ import { NotFoundComponent } from 'src/app/components/not-found/not-found.compon
     LoaderComponent,
     NotFoundComponent,
   ],
-  providers: [InventoryService, CategoryService, StorageService],
+  providers: [InventoryService, CategoryService, StorageService, RentalService],
 })
 export class InventoryPageModule {}
