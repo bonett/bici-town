@@ -5,6 +5,7 @@ import { InventoryService } from 'src/app/services/inventory.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { IInventory } from 'src/app/models/inventory.interface';
+import { ICategory } from 'src/app/models/category.interface';
 
 @Component({
   selector: 'app-inventory-page',
@@ -15,6 +16,10 @@ export class InventoryPage implements OnInit {
   public isLoading: boolean = true;
   public errMsg: string = 'No se encontraron bicicletas disponibles';
   public inventoryList: Array<IInventory> = [];
+  public categoryList: Array<ICategory> = [];
+  public chipSelected: string = 'ALL';
+  private inventoryListBackup: Array<IInventory> = [];
+  private categoryListBackup: Array<ICategory> = [];
   private inventorySubscription$: Subscription = null;
   private categorySubscription$: Subscription = null;
 
@@ -27,19 +32,59 @@ export class InventoryPage implements OnInit {
     this.inventorySubscription$ = this.inventoryService.inventory$.subscribe(
       (items) => {
         this.inventoryList = items;
+        this.inventoryListBackup = items;
         this.handleChangeLoader(false);
       }
     );
 
     this.categorySubscription$ = this.categoryService.category$.subscribe(
       (categories) => {
-        console.log(categories);
+        this.categoryList = categories;
       }
     );
   }
 
   ngOnInit() {
     this.initializeData();
+  }
+
+  public searchItem(event) {
+    const {
+      target: { value },
+    } = event;
+    const searchTerm = value;
+
+    this.inventoryList = this.inventoryListBackup;
+
+    if (!searchTerm) {
+      return;
+    }
+
+    this.inventoryList = this.inventoryList.filter((item) => {
+      if (item.title && searchTerm) {
+        return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+      }
+    });
+  }
+
+  public filterByCategory(chip: any) {
+    if (chip !== 'ALL') {
+      const { category } = chip;
+      const searchTerm = category;
+
+      this.chipSelected = category;
+
+      this.inventoryList = this.inventoryListBackup.filter((item) => {
+        if (item.category && category) {
+          return (
+            item.category.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
+          );
+        }
+      });
+    } else {
+      this.chipSelected = 'ALL';
+      this.inventoryList = this.inventoryListBackup;
+    }
   }
 
   private initializeData(): void {

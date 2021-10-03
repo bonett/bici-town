@@ -9,14 +9,14 @@
     var(--ion-color-tertiary-tint) 0%,
     var(--ion-color-tertiary) 100%
   );
-  border-radius: 10px 10px 10px 50px;
+  border-radius: 10px 10px 50px 50px;
   box-shadow: 0 1px 10px var(--ion-color-tertiary);
-  height: 180px;
+  height: 200px;
   margin-bottom: 60px;
   margin-left: -18px;
   margin-top: -50px;
-  transform: rotate(-15deg);
-  width: 350px;
+  transform: rotate(0deg);
+  width: 330px;
 }
 
 .menu-items {
