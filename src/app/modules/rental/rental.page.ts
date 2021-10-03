@@ -10,6 +10,7 @@ import { InventoryService } from 'src/app/services/inventory.service';
 import { RentalService } from 'src/app/services/rental.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
+import * as moment from 'moment';
 @Component({
   selector: 'app-rental-page',
   templateUrl: './rental.page.html',
@@ -64,11 +65,7 @@ export class RentalPage implements OnInit {
 
   private initializeForm(): void {
     const {
-      REGEX: {
-        EMAIL_REGEXP: regexEmail,
-        PHONE_REGEXP: regexPhone,
-        FULLNAME_REGEXP: regexFullName,
-      },
+      REGEX: { EMAIL_REGEXP: regexEmail, PHONE_REGEXP: regexPhone },
       ERROR_MESSAGE: { BIKE, DATE, EMAIL, PHONE },
     } = STATIC;
 
@@ -166,7 +163,7 @@ export class RentalPage implements OnInit {
       bike,
       email,
       phone,
-      rentDate,
+      rentDate: moment(rentDate).format('LL'),
       category,
       categoryId,
       color,
@@ -182,10 +179,12 @@ export class RentalPage implements OnInit {
     this.rentalService.createNewRental(payload).then((isRegistered) => {
       if (isRegistered) {
         this.toastService.presentSuccessToast(
-          `Se ha creado su renta exitosamente para el dia ${rentDate}.`
+          `Se ha creado su renta exitosamente para el dia ${moment(
+            rentDate
+          ).format('LL')}.`
         );
         this.rentalForm.reset();
-        this.navCtrl.navigateRoot('/inventory');
+        this.navCtrl.navigateRoot('/historial');
       }
     });
   }

@@ -40,7 +40,7 @@
         size="12"
         *ngIf="!isLoading && inventoryList.length === 0"
       >
-        <app-not-found [sourceMessage]="'No se encontraron bicicletas disponibles'"></app-not-found>
+        <app-not-found [sourceMessage]="errMsg"></app-not-found>
       </ion-col>
     </ion-row>
 

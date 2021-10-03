@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { RentalService } from 'src/app/services/rental.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class DetailsPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private rentalService: RentalService
   ) {}
 
   ngOnInit() {

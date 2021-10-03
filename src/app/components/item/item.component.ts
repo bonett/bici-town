@@ -6,12 +6,15 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./item.component.scss'],
 })
 export class ItemComponent implements OnInit {
+  public item: object = {};
+
   @Input() sourceItem: object;
 
-  public item: object = null;
   constructor() {}
 
   ngOnInit() {
+    console.log(this.sourceItem);
+
     this.item = this.sourceItem;
   }
 }

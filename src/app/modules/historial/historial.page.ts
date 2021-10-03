@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class HistorialPage implements OnInit {
   public isLoading: boolean = true;
+  public errMsg: string = 'No encontramos bicicletas rentadas';
   public historialList: Array<IHistorial> = [];
   private historialSubscription$: Subscription = null;
 
