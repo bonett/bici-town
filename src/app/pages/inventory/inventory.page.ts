@@ -67,15 +67,14 @@ export class InventoryPage implements OnInit {
     });
   }
 
-  public filterByCategory(chip: any) {
-    if (chip !== 'ALL') {
-      const { category } = chip;
-      const searchTerm = category;
+  public filterByCategory(chipSelected: string): void {
+    if (chipSelected !== 'ALL') {
+      const searchTerm = chipSelected;
 
-      this.chipSelected = category;
+      this.chipSelected = chipSelected;
 
       this.inventoryList = this.inventoryListBackup.filter((item) => {
-        if (item.category && category) {
+        if (item.category && chipSelected) {
           return (
             item.category.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
           );

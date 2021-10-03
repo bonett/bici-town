@@ -13,6 +13,7 @@ import { ColorsComponent } from 'src/app/components/commons/colors/colors.compon
 import { LoaderComponent } from 'src/app/components/commons/loader/loader.component';
 import { NotFoundComponent } from 'src/app/components/not-found/not-found.component';
 import { RentalService } from 'src/app/services/rental.service';
+import { ChipFilterComponent } from 'src/app/components/chip-filter/chip-filter.component';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, InventoryPageRoutingModule],
@@ -23,6 +24,7 @@ import { RentalService } from 'src/app/services/rental.service';
     ColorsComponent,
     LoaderComponent,
     NotFoundComponent,
+    ChipFilterComponent,
   ],
   providers: [InventoryService, CategoryService, StorageService, RentalService],
 })
