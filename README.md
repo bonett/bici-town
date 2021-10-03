@@ -6,6 +6,9 @@ Description:
 
 App for rental and preview bikes:
 
+<img width="496" alt="Screen Shot 2021-10-02 at 21 40 28" src="https://user-images.githubusercontent.com/8261459/135737555-9802ff0a-c712-4b82-8f0c-647e5bebf57f.png">
+
+
 Tools:
 
 - [Ionic Framework](https://ionicframework.com/)
@@ -22,7 +25,7 @@ Tools:
 1. Firstly, you need to clone repo.
 
 ```
-https://github.com/bonett/bici-town.git
+git clone https://github.com/bonett/bici-town.git
 ```
 
 2. You need to update `environments.ts` file, with the firebase config.
@@ -44,3 +47,25 @@ ionic serve
 ```
 localhost:8100
 ```
+
+# Capturas de pantalla
+
+<img width="471" alt="Screen Shot 2021-10-02 at 21 41 53" src="https://user-images.githubusercontent.com/8261459/135737570-09006e9a-cce2-4b4a-b56e-cb28564c61f8.png">
+
+
+<img width="476" alt="Screen Shot 2021-10-02 at 21 42 41" src="https://user-images.githubusercontent.com/8261459/135737575-c2659067-638c-4b11-a2a3-d1d564e46c74.png">
+
+<img width="503" alt="Screen Shot 2021-10-02 at 21 42 17" src="https://user-images.githubusercontent.com/8261459/135737583-bdc8ff8d-5c20-411c-847d-354a4a502fe5.png">
+
+<img width="465" alt="Screen Shot 2021-10-02 at 21 42 50" src="https://user-images.githubusercontent.com/8261459/135737588-42fd95d0-35b1-4398-b346-75f929159b7b.png">
+
+<img width="536" alt="Screen Shot 2021-10-02 at 21 42 56" src="https://user-images.githubusercontent.com/8261459/135737590-70e718de-296e-4f6c-bf42-e8e24b082fee.png">
+
+
+
+
+
+
+
+
+
