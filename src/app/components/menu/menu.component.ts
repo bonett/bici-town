@@ -10,7 +10,7 @@ import { IMenu } from 'src/app/models/menu.interface';
 export class MenuComponent implements OnInit {
   public userName: string = 'wilfrido bonett';
   public userPhoto: string = '../../../../assets/img/profile.jpeg';
-  public userRole: string = 'Developer';
+  public userRole: string = 'Software Engineer';
 
   public pages: Array<IMenu> = [
     {

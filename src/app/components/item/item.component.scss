@@ -20,38 +20,75 @@ ion {
     }
 
     .wrapper {
-      min-height: 180px;
       position: relative;
       z-index: 3;
 
       &_description {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: flex-start;
+        height: 180px;
         padding: 10px 20px;
-        position: relative;
+      }
+    }
+  }
 
-        ion-label {
-          color: var(--ion-color-white) !important;
-          margin-bottom: 4px;
-          text-transform: capitalize !important;
+  &-label {
+    h5 {
+      color: var(--ion-color-white) !important;
+      text-transform: capitalize !important;
+      font-weight: 600 !important;
+      font-size: 15px !important;
+      padding-left: 4px;
 
-          &.date {
-            position: absolute;
-            top: 15px;
-            right: 12px;
-            display: flex;
-          }
+      &.small {
+        font-size: 13px !important;
+        font-weight: 400 !important;
+      }
 
-          &.title {
-            font-size: 16px !important;
-          }
+      &.medium {
+        font-size: 15px !important;
+        font-weight: 700 !important;
+      }
 
-          &.location {
-            font-size: 12px !important;
-          }
-        }
+      &.large {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+      }
+    }
+
+    &.top {
+      margin-top: 6px;
+    }
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: row;
+  height: 50%;
+  justify-content: flex-end;
+
+  &:first-child {
+    align-items: flex-start;
+
+    ion-col {
+      &:first-child {
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      &:last-child {
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  &:last-child {
+    align-items: flex-end;
+
+    ion-col {
+      &:last-child {
+        display: flex;
+        justify-content: flex-end;
       }
     }
   }
