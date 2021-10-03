@@ -26,7 +26,7 @@
           class="form-input"
         >
           <ion-text color="dark">
-            <h6>Selecciona tu producto</h6>
+            <h6>Selecciona tu bicicletaa reservar</h6>
           </ion-text>
           <ion-input
             formControlName="bike"
@@ -63,6 +63,9 @@
 
         <ion-col size="8">
           <ion-text color="dark">
+            <h6>Descripción</h6>
+          </ion-text>
+          <ion-text color="dark">
             <h1>{{bikeSelected.title}}</h1>
           </ion-text>
           <ion-text color="medium">
@@ -72,6 +75,9 @@
 
 
         <ion-col size="4">
+          <ion-text color="dark">
+            <h6>Precio X Día</h6>
+          </ion-text>
           <ion-text color="dark">
             <h1>{{bikeSelected.price | currency:'EUR':true}}</h1>
           </ion-text>

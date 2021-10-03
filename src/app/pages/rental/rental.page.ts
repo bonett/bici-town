@@ -48,12 +48,11 @@ export class RentalPage implements OnInit {
   async ngOnInit() {
     await this.initializeForm();
     await this.getItemSelected();
-    await this.setInitialPayments();
-    await this.validateBikeSelected();
   }
 
   async getItemSelected() {
     this.bikeSelected = await this.storageService.get('bike_selected');
+    this.validateBikeSelected();
   }
 
   private validateBikeSelected() {
@@ -107,12 +106,6 @@ export class RentalPage implements OnInit {
     }
   }
 
-  private setInitialPayments(): void {
-    const { price } = this.bikeSelected;
-    this.daySelected = 1;
-    this.totalAmount = price;
-  }
-
   private calculatePriceEBikes(operator: string): void {
     if (operator === 'INCREASE') {
       this.daySelected += 1;
@@ -129,13 +122,13 @@ export class RentalPage implements OnInit {
 
       if (this.daySelected < 5) {
         this.totalAmount = this.bikeSelected.price;
-        return;
       }
 
       if (this.daySelected > 5) {
         this.totalAmount += this.bikeSelected.price;
-        return;
       }
+
+      return;
     }
 
     if (operator === 'DECREASE') {
@@ -143,13 +136,17 @@ export class RentalPage implements OnInit {
 
       if (this.daySelected > 5) {
         this.totalAmount -= this.bikeSelected.price;
-        return;
       }
 
       if (this.daySelected <= 5) {
         this.totalAmount = this.bikeSelected.price;
-        return;
       }
+
+      if (this.daySelected === 0) {
+        this.totalAmount = 0;
+      }
+
+      return;
     }
   }
 
@@ -159,13 +156,13 @@ export class RentalPage implements OnInit {
 
       if (this.daySelected < 3) {
         this.totalAmount = this.bikeSelected.price;
-        return;
       }
 
       if (this.daySelected > 3) {
         this.totalAmount += this.bikeSelected.price;
-        return;
       }
+
+      return;
     }
 
     if (operator === 'DECREASE') {
@@ -173,12 +170,14 @@ export class RentalPage implements OnInit {
 
       if (this.daySelected > 3) {
         this.totalAmount -= this.bikeSelected.price;
-        return;
       }
 
       if (this.daySelected <= 3) {
         this.totalAmount = this.bikeSelected.price;
-        return;
+      }
+
+      if (this.daySelected === 0) {
+        this.totalAmount = 0;
       }
     }
   }
