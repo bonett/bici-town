@@ -5,21 +5,21 @@ const routes: Routes = [
   {
     path: 'inventory',
     loadChildren: () =>
-      import('./modules/inventory/inventory.module').then(
+      import('./pages/inventory/inventory.module').then(
         (m) => m.InventoryPageModule
       ),
   },
   {
     path: 'historial',
     loadChildren: () =>
-      import('./modules/historial/historial.module').then(
+      import('./pages/historial/historial.module').then(
         (m) => m.HistorialPageModule
       ),
   },
   {
     path: 'rental',
     loadChildren: () =>
-      import('./modules/rental/rental.module').then((m) => m.RentalPageModule),
+      import('./pages/rental/rental.module').then((m) => m.RentalPageModule),
   },
   {
     path: '',
