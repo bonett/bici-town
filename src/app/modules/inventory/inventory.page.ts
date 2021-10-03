@@ -15,6 +15,7 @@ export class InventoryPage implements OnInit {
   public isLoading: boolean = true;
   public errMsg: string = 'No se encontraron bicicletas disponibles';
   public inventoryList: Array<IInventory> = [];
+  public inventoryListBackup: Array<IInventory> = [];
   private inventorySubscription$: Subscription = null;
   private categorySubscription$: Subscription = null;
 
@@ -27,6 +28,7 @@ export class InventoryPage implements OnInit {
     this.inventorySubscription$ = this.inventoryService.inventory$.subscribe(
       (items) => {
         this.inventoryList = items;
+        this.inventoryListBackup = items;
         this.handleChangeLoader(false);
       }
     );
@@ -40,6 +42,21 @@ export class InventoryPage implements OnInit {
 
   ngOnInit() {
     this.initializeData();
+  }
+
+  public searchItem(e) {
+    const searchTerm = e.target.value;
+    this.inventoryList = this.inventoryListBackup;
+
+    if (!searchTerm) {
+      return;
+    }
+
+    this.inventoryList = this.inventoryList.filter((item) => {
+      if (item.title && searchTerm) {
+        return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+      }
+    });
   }
 
   private initializeData(): void {

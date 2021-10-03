@@ -17,6 +17,7 @@
         <ion-searchbar
           showCancelButton="never"
           placeholder="Listo para una nueva aventura?"
+          (ionChange)="searchItem($event)"
           [disabled]="isLoading"
         ></ion-searchbar>
       </ion-col>
