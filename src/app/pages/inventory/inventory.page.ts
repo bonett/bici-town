@@ -19,7 +19,6 @@ export class InventoryPage implements OnInit {
   public categoryList: Array<ICategory> = [];
   public chipSelected: string = 'ALL';
   private inventoryListBackup: Array<IInventory> = [];
-  private categoryListBackup: Array<ICategory> = [];
   private inventorySubscription$: Subscription = null;
   private categorySubscription$: Subscription = null;
 

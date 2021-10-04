@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { MenuComponent } from './components/menu/menu.component';
 import { AvatarComponent } from './components/commons/avatar/avatar.component';
 import { StorageService } from './services/storage.service';
+import { UserService } from './services/user.services';
 
 @NgModule({
   declarations: [AppComponent, MenuComponent, AvatarComponent],
@@ -32,6 +33,7 @@ import { StorageService } from './services/storage.service';
     StatusBar,
     SplashScreen,
     StorageService,
+    UserService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

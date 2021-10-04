@@ -5,9 +5,8 @@
   <ion-content>
     <div class="menu-header-bg"></div>
     <app-avatar
-      [sourceName]="userName"
-      [sourcePhotoUrl]="userPhoto"
-      [sourceRole]="userRole"
+      *ngIf="userLogged"
+      [sourceData]="userLogged"
     ></app-avatar>
     <ion-list
       class="menu-items"

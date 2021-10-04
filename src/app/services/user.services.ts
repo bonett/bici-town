@@ -9,12 +9,12 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class CategoryService {
-  private dbPath = 'categories';
+export class UserService {
+  private dbPath = 'user_bici_town';
   private initData: Array<any> = [];
   private reference: AngularFirestoreCollection<any> = null;
-  private categorySubject = new BehaviorSubject(this.initData);
-  public category$: Observable<any[]> = this.categorySubject.asObservable();
+  private userSubject = new BehaviorSubject(this.initData);
+  public userLogged$: Observable<any[]> = this.userSubject.asObservable();
 
   constructor(private afs: AngularFirestore) {
     this.reference = this.afs.collection(this.dbPath);
@@ -24,7 +24,7 @@ export class CategoryService {
     return this.reference;
   }
 
-  public getCategories() {
+  public getUserList() {
     this.getCollection()
       .snapshotChanges()
       .pipe(
@@ -36,7 +36,7 @@ export class CategoryService {
         )
       )
       .subscribe((data) => {
-        this.categorySubject.next(data);
+        this.userSubject.next(data);
       });
   }
 }
