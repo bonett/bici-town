@@ -30,7 +30,7 @@
           <h6>Detalle</h6>
         </ion-text>
         <ion-text color="dark">
-          <h2>{{item.title}}</h2>
+          <h1>{{item.title}}</h1>
         </ion-text>
       </ion-col>
 
@@ -159,21 +159,21 @@
       </ion-col>
 
       <ion-col
-        size="8"
+        size="6"
         *ngIf="item && item.total"
         class="align-total"
       >
         <ion-text color="dark">
-          <h2>Total Pagado</h2>
+          <h1>Total Pagado</h1>
         </ion-text>
       </ion-col>
 
       <ion-col
-        size="4"
+        size="6"
         *ngIf="item && item.total"
       >
         <ion-text color="dark">
-          <h2>{{item.total | currency:'EUR':true}}</h2>
+          <h1>{{item.total | currency:'EUR':true}}</h1>
         </ion-text>
       </ion-col>
 
