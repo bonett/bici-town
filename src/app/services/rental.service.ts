@@ -45,7 +45,7 @@ export class RentalService {
     return await this.getCollection()
       .doc(uuidv4())
       .set(documentData)
-      .then((data) => {
+      .then(() => {
         return true;
       });
   }

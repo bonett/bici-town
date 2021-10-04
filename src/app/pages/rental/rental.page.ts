@@ -17,6 +17,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import * as moment from 'moment';
 import { UserService } from 'src/app/services/user.services';
 import { LoaderService } from 'src/app/services/loader.service';
+import { IHistorial } from 'src/app/models/historial.interface';
 @Component({
   selector: 'app-rental-page',
   templateUrl: './rental.page.html',
@@ -30,6 +31,8 @@ export class RentalPage implements OnInit {
   private initDate: string = new Date().toISOString();
   public inventoryList: Array<IInventory> = [];
   private inventorySubscription$: Subscription = null;
+  private historialList: Array<IHistorial> = [];
+  private historialSubscription$: Subscription = null;
   public bikeSelected: IInventory = null;
   public daySelected: number = 0;
   public totalAmount: number = 0;
@@ -51,6 +54,12 @@ export class RentalPage implements OnInit {
         this.inventoryList = items;
       }
     );
+
+    this.historialSubscription$ = this.rentalService.historial$.subscribe(
+      (items) => {
+        this.historialList = items;
+      }
+    );
   }
 
   async ngOnInit() {
@@ -59,6 +68,7 @@ export class RentalPage implements OnInit {
   }
 
   public async getItemSelected() {
+    await this.rentalService.getHistorial();
     this.bikeSelected = await this.storageService.get('bike_selected');
     this.validateBikeSelected();
   }
@@ -203,6 +213,7 @@ export class RentalPage implements OnInit {
         type: 'radios',
       },
     });
+
     modal.onDidDismiss().then((res: any) => {
       const { id } = res && res.data;
       if (id !== '') {
@@ -215,11 +226,20 @@ export class RentalPage implements OnInit {
         );
       }
     });
+
     await modal.present();
   }
 
   get form() {
     return this.rentalForm.controls;
+  }
+
+  private checkAvilability(title: string) {
+    const result = this.historialList.find((item: any) => {
+      return item.title === title && item.status === 'En Progreso';
+    });
+
+    return result ? false : true;
   }
 
   public async submitRentalForm(form: any) {
@@ -229,8 +249,6 @@ export class RentalPage implements OnInit {
       );
       return;
     }
-
-    this.loaderService.presentLoading('Verificando su pago...');
 
     const { firstname, lastname } = await this.userService.getUserLogged();
     const {
@@ -262,6 +280,17 @@ export class RentalPage implements OnInit {
       client: `${firstname} ${lastname}`,
     };
 
+    let isAvailable = this.checkAvilability(title);
+
+    if (!isAvailable) {
+      this.toastService.presentErrorToast(
+        'Bicicleta no disponible para alquiler en estos momentos'
+      );
+      return;
+    }
+
+    this.loaderService.presentLoading('Verificando su pago...');
+
     this.rentalService.createNewRental(payload).then(async (isRegistered) => {
       if (isRegistered) {
         const currentUser = await this.userService.getUserLogged();
@@ -282,6 +311,7 @@ export class RentalPage implements OnInit {
 
   ngOnDestroy() {
     this.inventorySubscription$.unsubscribe();
+    this.historialSubscription$.unsubscribe();
     this.storageService.remove('bike_selected');
   }
 }

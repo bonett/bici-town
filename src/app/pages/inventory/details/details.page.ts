@@ -33,13 +33,12 @@ export class DetailsPage implements OnInit {
     this.navCtrl.navigateForward(`/rental/new/${uuid}`);
   }
 
-  public async completeRentalContract(item: IInventory) {
+  public completeRentalContract(item: IInventory) {
     this.loaderService.presentLoading('Actualizando Registro...');
-    await this.rentalService.completeRentalContract(item.key);
-    setTimeout(() => {
-      this.navCtrl.navigateForward(`/historial`);
+    this.rentalService.completeRentalContract(item.key).then(() => {
+      this.navCtrl.navigateBack(`/historial`, { replaceUrl: true });
       this.loaderService.dismissLoading();
-    }, 3000);
+    });
   }
 
   ngDestroy() {
