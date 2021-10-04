@@ -29,7 +29,7 @@ Tools:
 git clone https://github.com/bonett/bici-town.git
 ```
 
-2. You need to update `environments.ts` file, with the firebase config.
+2. I provide the `environments.ts` file, temporally for testing.
 
 3. cd bici-town and install the dependencies
 
