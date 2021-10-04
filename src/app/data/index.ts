@@ -1,4 +1,34 @@
 export const STATIC = {
+  MENU: [
+    {
+      title: 'Catalogo Completo',
+      pageName: 'inventory',
+      tabComponent: 'InventoryPage',
+      index: 0,
+      icon: 'storefront-outline',
+    },
+    {
+      title: 'Historial de Renta',
+      pageName: 'historial',
+      tabComponent: 'HistorialPage',
+      index: 1,
+      icon: 'bar-chart-outline',
+    },
+    {
+      title: 'Configuración',
+      pageName: 'settings',
+      tabComponent: 'SettingPage',
+      index: 2,
+      icon: 'settings-outline',
+    },
+    {
+      title: 'Salir',
+      pageName: 'signOut',
+      tabComponent: 'SignOutPage',
+      index: 2,
+      icon: 'log-out-outline',
+    },
+  ],
   REGEX: {
     EMAIL_REGEXP:
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,

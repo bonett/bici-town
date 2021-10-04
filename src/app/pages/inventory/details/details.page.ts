@@ -21,7 +21,7 @@ export class DetailsPage implements OnInit {
     this.getItemSelected();
   }
 
-  async getItemSelected() {
+  public async getItemSelected() {
     this.item = await this.storageService.get('bike_details');
   }
 

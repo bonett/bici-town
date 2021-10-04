@@ -5,6 +5,7 @@ import {
 } from '@angular/fire/compat/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,10 @@ export class UserService {
   private userSubject = new BehaviorSubject(this.initData);
   public userLogged$: Observable<any[]> = this.userSubject.asObservable();
 
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    private storageService: StorageService
+  ) {
     this.reference = this.afs.collection(this.dbPath);
   }
 
@@ -38,5 +42,9 @@ export class UserService {
       .subscribe((data) => {
         this.userSubject.next(data);
       });
+  }
+
+  public getUserLogged() {
+    return this.storageService.get('user_logged');
   }
 }

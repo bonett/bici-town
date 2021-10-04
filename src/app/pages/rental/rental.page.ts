@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ModalController, NavController } from '@ionic/angular';
+import {
+  LoadingController,
+  ModalController,
+  NavController,
+} from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ModalOptionsComponent } from 'src/app/components/modal-options/modal-options.component';
 import { STATIC } from 'src/app/data';
@@ -11,6 +15,8 @@ import { RentalService } from 'src/app/services/rental.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { ToastService } from 'src/app/services/toast.service';
 import * as moment from 'moment';
+import { UserService } from 'src/app/services/user.services';
+import { LoaderService } from 'src/app/services/loader.service';
 @Component({
   selector: 'app-rental-page',
   templateUrl: './rental.page.html',
@@ -36,7 +42,9 @@ export class RentalPage implements OnInit {
     private inventoryService: InventoryService,
     private modalCtrl: ModalController,
     private route: ActivatedRoute,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private loaderService: LoaderService,
+    private userService: UserService
   ) {
     this.inventorySubscription$ = this.inventoryService.inventory$.subscribe(
       (items) => {
@@ -50,7 +58,7 @@ export class RentalPage implements OnInit {
     await this.getItemSelected();
   }
 
-  async getItemSelected() {
+  public async getItemSelected() {
     this.bikeSelected = await this.storageService.get('bike_selected');
     this.validateBikeSelected();
   }
@@ -214,7 +222,7 @@ export class RentalPage implements OnInit {
     return this.rentalForm.controls;
   }
 
-  public submitRentalForm(form: any): void {
+  public async submitRentalForm(form: any) {
     if (this.daySelected === 0) {
       this.toastService.presentErrorToast(
         'Es necesario que seleccione al menos 1 día para continuar'
@@ -222,12 +230,14 @@ export class RentalPage implements OnInit {
       return;
     }
 
+    this.loaderService.presentLoading();
+
+    const { firstname, lastname } = await this.userService.getUserLogged();
     const {
       category,
       categoryId,
       color,
       description,
-      id,
       key,
       location,
       size,
@@ -236,22 +246,25 @@ export class RentalPage implements OnInit {
     } = this.bikeSelected;
 
     const payload = {
-      rentDate: moment(this.initDate).format('LL'),
+      atCreated: moment(this.initDate).format(),
       category,
       categoryId,
       color,
       description,
-      id,
       key,
       location,
       size,
       thumbnail,
       title,
+      total: this.totalAmount,
+      days: this.daySelected,
+      client: `${firstname}${lastname}`,
     };
 
-    this.rentalService.createNewRental(payload).then((isRegistered) => {
+    this.rentalService.createNewRental(payload).then(async (isRegistered) => {
       if (isRegistered) {
-        this.toastService.presentSuccessToast(
+        await this.loaderService.dismissLoading();
+        await this.toastService.presentSuccessToast(
           `Se ha creado su renta exitosamente para el dia ${moment(
             this.initDate
           ).format('LL')}.`

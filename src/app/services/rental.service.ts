@@ -41,8 +41,10 @@ export class RentalService {
       });
   }
 
-  public createNewRental(documentData) {
-    return this.getCollection()
+  public async createNewRental(documentData: any) {
+    console.log(documentData);
+
+    return await this.getCollection()
       .doc(uuidv4())
       .set(documentData)
       .then((data) => {

@@ -9,6 +9,8 @@ import { RentalService } from 'src/app/services/rental.service';
 import { ToastService } from 'src/app/services/toast.service';
 import { ColorsComponent } from 'src/app/components/commons/colors/colors.component';
 import { CounterDayComponent } from 'src/app/components/counter-day/counter-day.component';
+import { UserService } from 'src/app/services/user.services';
+import { LoaderService } from 'src/app/services/loader.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +25,6 @@ import { CounterDayComponent } from 'src/app/components/counter-day/counter-day.
     ColorsComponent,
     CounterDayComponent,
   ],
-  providers: [RentalService, ToastService],
+  providers: [RentalService, ToastService, UserService, LoaderService],
 })
 export class RentalPageModule {}
