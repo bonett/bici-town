@@ -1,4 +1,4 @@
 export interface ICategory {
-  uuid: string;
+  uuid?: string;
   category: string;
 }
