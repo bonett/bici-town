@@ -6,10 +6,10 @@ import { LoadingController } from '@ionic/angular';
 export class LoaderService {
   constructor(private loadingController: LoadingController) {}
 
-  public async presentLoading() {
+  public async presentLoading(msg: string) {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Verificado su pago...',
+      message: msg,
     });
     await loading.present();
   }

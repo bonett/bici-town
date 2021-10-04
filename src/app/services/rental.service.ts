@@ -49,4 +49,8 @@ export class RentalService {
         return true;
       });
   }
+
+  public async completeRentalContract(key: string) {
+    return this.getCollection().doc(key).update({ status: 'Entregada' });
+  }
 }

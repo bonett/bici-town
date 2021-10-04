@@ -230,7 +230,7 @@ export class RentalPage implements OnInit {
       return;
     }
 
-    this.loaderService.presentLoading();
+    this.loaderService.presentLoading('Verificando su pago...');
 
     const { firstname, lastname } = await this.userService.getUserLogged();
     const {
@@ -238,7 +238,7 @@ export class RentalPage implements OnInit {
       categoryId,
       color,
       description,
-      key,
+      uuid,
       location,
       size,
       thumbnail,
@@ -251,7 +251,7 @@ export class RentalPage implements OnInit {
       categoryId,
       color,
       description,
-      key,
+      uuid,
       location,
       size,
       thumbnail,

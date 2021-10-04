@@ -182,13 +182,15 @@
           *ngIf="item && !item.status"
           expand="block"
           color="tertiary"
-          (click)="newRental(item.id)"
+          type="button"
+          (click)="newRental(item.uuid)"
         >La quiero !</ion-button>
         <ion-button
           *ngIf="item && item.status === 'En Progreso'"
           expand="block"
           color="danger"
-          (click)="newRental(item.id)"
+          type="button"
+          (click)="completeRentalContract(item)"
         >Entregar</ion-button>
       </ion-col>
 

@@ -1,7 +1,7 @@
 import { ICategory } from './category.interface';
 export interface IInventory extends ICategory {
   id?: string;
-  key: string;
+  key?: string;
   thumbnail: string;
   title: string;
   price?: number;
@@ -13,5 +13,6 @@ export interface IInventory extends ICategory {
   atCreated: any;
   days?: any;
   total?: number;
+  categoryId?: string;
   client?: string;
 }
