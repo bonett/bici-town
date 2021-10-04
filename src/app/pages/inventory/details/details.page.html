@@ -30,11 +30,14 @@
           <h6>Detalle</h6>
         </ion-text>
         <ion-text color="dark">
-          <h1>{{item.title}}</h1>
+          <h2>{{item.title}}</h2>
         </ion-text>
       </ion-col>
 
-      <ion-col size="4">
+      <ion-col
+        size="4"
+        *ngIf="item && !item.status"
+      >
         <ion-text color="dark">
           <h6>Precio por día</h6>
         </ion-text>
@@ -43,21 +46,41 @@
         </ion-text>
       </ion-col>
 
+      <ion-col
+        size="4"
+        *ngIf="item && item.status"
+      >
+        <ion-text color="dark">
+          <h6>Estado Actual</h6>
+        </ion-text>
+        <ion-label>
+          <h5
+            class="status small"
+            [ngClass]="{'in-progress': item.status === 'En Progreso','done': item.status === 'Entregada'}"
+          >{{item.status}}</h5>
+        </ion-label>
+      </ion-col>
 
-      <ion-col size="12">
+      <ion-col
+        size="12"
+        *ngIf="item && !item.client"
+      >
         <ion-text color="dark">
           <h6>Descripción</h6>
         </ion-text>
-        <ion-text color="medium">
+        <ion-text color="dark">
           <p>{{item.description}}</p>
         </ion-text>
       </ion-col>
 
-      <ion-col size="5">
+      <ion-col
+        size="5"
+        *ngIf="item && !item.client"
+      >
         <ion-text color="dark">
           <h6>Tipo de Bicicleta</h6>
         </ion-text>
-        <ion-text color="medium">
+        <ion-text color="dark">
           <p>
             <ion-icon
               *ngIf="item.type === 'Premium'"
@@ -68,19 +91,47 @@
         </ion-text>
       </ion-col>
 
+      <ion-col
+        size="5"
+        *ngIf="item && item.client"
+      >
+        <ion-text color="dark">
+          <h6>Nombre de cliente:</h6>
+        </ion-text>
+        <ion-text color="dark">
+          <h5>{{item.client}}</h5>
+        </ion-text>
+      </ion-col>
 
-      <ion-col size="4">
+
+      <ion-col
+        size="4"
+        *ngIf="item && !item.days"
+      >
         <ion-text color="dark">
           <h6>Talla</h6>
         </ion-text>
-        <ion-text color="medium">
+        <ion-text color="dark">
           <h2>{{item.size}}</h2>
+        </ion-text>
+      </ion-col>
+
+      <ion-col
+        size="4"
+        *ngIf="item && item.days"
+      >
+        <ion-text color="dark">
+          <h6>Días rentados</h6>
+        </ion-text>
+        <ion-text color="dark">
+          <h2>{{item.days}}</h2>
         </ion-text>
       </ion-col>
 
       <ion-col size="3">
         <ion-text color="dark">
-          <h6>Colores disponibles</h6>
+          <h6 *ngIf="item && !item.days">Colores disponibles</h6>
+          <h6 *ngIf="item && item.days">Color</h6>
         </ion-text>
 
         <app-colors
@@ -90,11 +141,14 @@
 
       </ion-col>
 
-      <ion-col size="12">
+      <ion-col
+        size="12"
+        *ngIf="item && !item.total"
+      >
         <ion-text color="dark">
           <h6>Disponibilidad inmediata para</h6>
         </ion-text>
-        <ion-text color="medium">
+        <ion-text color="dark">
           <p>
             <ion-icon
               name="location"
@@ -104,13 +158,38 @@
         </ion-text>
       </ion-col>
 
+      <ion-col
+        size="8"
+        *ngIf="item && item.total"
+        class="align-total"
+      >
+        <ion-text color="dark">
+          <h2>Total Pagado</h2>
+        </ion-text>
+      </ion-col>
+
+      <ion-col
+        size="4"
+        *ngIf="item && item.total"
+      >
+        <ion-text color="dark">
+          <h2>{{item.total | currency:'EUR':true}}</h2>
+        </ion-text>
+      </ion-col>
+
       <ion-col size="12">
         <ion-button
-          *ngIf="item && !item.rentDate"
+          *ngIf="item && !item.status"
           expand="block"
           color="tertiary"
           (click)="newRental(item.id)"
         >La quiero !</ion-button>
+        <ion-button
+          *ngIf="item && item.status === 'En Progreso'"
+          expand="block"
+          color="danger"
+          (click)="newRental(item.id)"
+        >Entregar</ion-button>
       </ion-col>
 
     </ion-row>

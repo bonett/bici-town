@@ -25,37 +25,8 @@ ion {
 
       &_description {
         height: 180px;
-        padding: 10px 20px;
+        padding: 6px 12px;
       }
-    }
-  }
-
-  &-label {
-    h5 {
-      color: var(--ion-color-white) !important;
-      text-transform: capitalize !important;
-      font-weight: 600 !important;
-      font-size: 15px !important;
-      padding-left: 4px;
-
-      &.small {
-        font-size: 13px !important;
-        font-weight: 400 !important;
-      }
-
-      &.medium {
-        font-size: 15px !important;
-        font-weight: 700 !important;
-      }
-
-      &.large {
-        font-size: 20px !important;
-        font-weight: 700 !important;
-      }
-    }
-
-    &.top {
-      margin-top: 6px;
     }
   }
 }

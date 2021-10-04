@@ -5,18 +5,7 @@
       class="wrapper_description"
     >
       <ion-row class="column">
-        <ion-col size="6">
-          <!-- <ion-label>
-            <h5 class="title">{{item.title}}</h5>
-          </ion-label>
-          <ion-label [style.display]="'flex'">
-            <ion-icon
-              name="location"
-              color="tertiary"
-            ></ion-icon>
-            <h5 class="location">{{item.location}}</h5>
-          </ion-label> -->
-        </ion-col>
+        <ion-col size="6"></ion-col>
         <ion-col size="6">
           <ion-label
             *ngIf="item && item.type === 'Premium'"
@@ -28,6 +17,12 @@
             ></ion-icon>
             <h5>{{item.type}}</h5>
           </ion-label>
+          <ion-label *ngIf="status">
+            <h5
+              class="status small"
+              [ngClass]="{'in-progress': status === 'En Progreso','done': status === 'Entregada'}"
+            >{{status}}</h5>
+          </ion-label>
         </ion-col>
       </ion-row>
       <ion-row class="column">
@@ -35,9 +30,11 @@
           <ion-label>
             <h5 class="medium">{{item.title | uppercase}}</h5>
           </ion-label>
+
           <ion-label
             [style.display]="'flex'"
             class="top"
+            *ngIf="item && !item.client"
           >
             <ion-icon
               name="location"
@@ -50,19 +47,11 @@
           <ion-label *ngIf="item && item.price">
             <h5 class="large">{{item.price | currency:'EUR':true}}</h5>
           </ion-label>
+          <ion-label *ngIf="endRental && status === 'En Progreso'">
+            <h5>Restan {{endRental}} días</h5>
+          </ion-label>
         </ion-col>
       </ion-row>
-      <!--   <ion-label
-        class="date"
-        *ngIf="item && item.rentDate"
-      >
-        <ion-icon
-          name="calendar"
-          color="tertiary"
-        ></ion-icon>
-        <h5>{{item.rentDate | date:'medium'}}</h5>
-      </ion-label>
-       -->
 
     </ion-col>
   </ion-row>

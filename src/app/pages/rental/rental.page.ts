@@ -256,9 +256,10 @@ export class RentalPage implements OnInit {
       size,
       thumbnail,
       title,
+      status: 'En Progreso',
       total: this.totalAmount,
       days: this.daySelected,
-      client: `${firstname}${lastname}`,
+      client: `${firstname} ${lastname}`,
     };
 
     this.rentalService.createNewRental(payload).then(async (isRegistered) => {

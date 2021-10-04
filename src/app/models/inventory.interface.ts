@@ -1,14 +1,17 @@
 import { ICategory } from './category.interface';
-
 export interface IInventory extends ICategory {
   id?: string;
   key: string;
   thumbnail: string;
   title: string;
-  price: number;
+  price?: number;
   type: string;
   description: string;
   location: string;
   color: string;
   size: string;
+  atCreated: any;
+  days?: any;
+  total?: number;
+  client?: string;
 }
