@@ -42,8 +42,6 @@ export class RentalService {
   }
 
   public async createNewRental(documentData: any) {
-    console.log(documentData);
-
     return await this.getCollection()
       .doc(uuidv4())
       .set(documentData)

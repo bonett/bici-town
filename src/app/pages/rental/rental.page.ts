@@ -263,6 +263,10 @@ export class RentalPage implements OnInit {
 
     this.rentalService.createNewRental(payload).then(async (isRegistered) => {
       if (isRegistered) {
+        const currentUser = await this.userService.getUserLogged();
+        const newPoints = this.bikeSelected.category === 'Eléctricas' ? 2 : 1;
+
+        await this.userService.updateUserPoints(currentUser, newPoints);
         await this.loaderService.dismissLoading();
         await this.toastService.presentSuccessToast(
           `Se ha creado su renta exitosamente para el dia ${moment(

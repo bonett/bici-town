@@ -47,4 +47,19 @@ export class UserService {
   public getUserLogged() {
     return this.storageService.get('user_logged');
   }
+
+  public updateUserPoints(currentUser: any, newPoints: number) {
+    const { firstname, lastname, location, points, photo, uuid } = currentUser;
+    const payload = {
+      firstname,
+      lastname,
+      location,
+      points: points + newPoints,
+      photo,
+      uuid,
+    };
+
+    // the next line is because I'm not use authentication.
+    this.getCollection().doc('RbRtVgoVO6Xc1SnYCQ6X').update(payload);
+  }
 }

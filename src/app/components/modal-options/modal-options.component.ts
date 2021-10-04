@@ -23,8 +23,6 @@ export class ModalOptionsComponent implements OnInit {
   }
 
   private initializeData(): void {
-    console.log(this.source);
-
     this.dataList = this.source;
     this.dataListBackup = this.source;
   }
