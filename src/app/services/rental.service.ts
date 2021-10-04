@@ -3,7 +3,6 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from '@angular/fire/compat/firestore';
-import * as firebase from 'firebase/app';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { v4 as uuidv4 } from 'uuid';
@@ -42,12 +41,16 @@ export class RentalService {
       });
   }
 
-  public createNewRental(documentData) {
-    return this.getCollection()
+  public async createNewRental(documentData: any) {
+    return await this.getCollection()
       .doc(uuidv4())
       .set(documentData)
-      .then((data) => {
+      .then(() => {
         return true;
       });
+  }
+
+  public async completeRentalContract(key: string) {
+    return this.getCollection().doc(key).update({ status: 'Entregada' });
   }
 }

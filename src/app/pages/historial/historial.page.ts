@@ -47,9 +47,10 @@ export class HistorialPage implements OnInit {
   }
 
   public showItemDetails(item: any) {
-    const { id } = item;
+    const { uuid } = item;
+
     this.storageService.set('bike_details', item);
-    this.navCtrl.navigateForward(`inventory/details/${id}`);
+    this.navCtrl.navigateForward(`inventory/details/${uuid}`);
   }
 
   ngOnDestroy() {

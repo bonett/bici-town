@@ -29,7 +29,7 @@
     <ion-radio-group (ionChange)="radioSelect($event)">
       <ion-item *ngFor="let item of dataList">
         <ion-label>{{item.title}}</ion-label>
-        <ion-radio value={{item.id}}></ion-radio>
+        <ion-radio value={{item.key}}></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
@@ -38,7 +38,7 @@
     <ion-item
       lines="full"
       *ngFor="let item of dataList"
-      (click)="itemSelect(item.id)"
+      (click)="itemSelect(item.key)"
     >
       <ion-label>{{item.title}}</ion-label>
     </ion-item>

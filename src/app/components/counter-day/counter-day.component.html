@@ -1,0 +1,16 @@
+<div class="counter-wrapper">
+  <ion-button
+    mode="ios"
+    color="tertiary"
+    type="button"
+    (click)="decreaseCounter()"
+    [disabled]="counter === 0"
+  >-</ion-button>
+  <h4>{{counter}}</h4>
+  <ion-button
+    mode="ios"
+    color="tertiary"
+    type="button"
+    (click)="increaseCounter()"
+  >+</ion-button>
+</div>

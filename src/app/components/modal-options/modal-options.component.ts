@@ -42,8 +42,8 @@ export class ModalOptionsComponent implements OnInit {
     });
   }
 
-  public itemSelect(id: string): void {
-    this.itemSelected = id;
+  public itemSelect(key: string): void {
+    this.itemSelected = key;
     this.confirmModal();
   }
 

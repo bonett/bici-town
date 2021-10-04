@@ -23,7 +23,7 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
-      this.storageService.clear();
+      /* this.storageService.clear(); */
       this.splashScreen.hide();
     });
   }

@@ -7,6 +7,10 @@ import { RentalPage } from './rental.page';
 import { ModalOptionsComponent } from 'src/app/components/modal-options/modal-options.component';
 import { RentalService } from 'src/app/services/rental.service';
 import { ToastService } from 'src/app/services/toast.service';
+import { ColorsComponent } from 'src/app/components/commons/colors/colors.component';
+import { CounterDayComponent } from 'src/app/components/counter-day/counter-day.component';
+import { UserService } from 'src/app/services/user.services';
+import { LoaderService } from 'src/app/services/loader.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +19,12 @@ import { ToastService } from 'src/app/services/toast.service';
     IonicModule,
     RentalPageRoutingModule,
   ],
-  declarations: [RentalPage, ModalOptionsComponent],
-  providers: [RentalService, ToastService],
+  declarations: [
+    RentalPage,
+    ModalOptionsComponent,
+    ColorsComponent,
+    CounterDayComponent,
+  ],
+  providers: [RentalService, ToastService, UserService, LoaderService],
 })
 export class RentalPageModule {}

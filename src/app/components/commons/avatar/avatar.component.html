@@ -1,9 +1,25 @@
-<div class="header-content">
-  <ion-avatar>
-    <ion-img [src]="currentPhoto"></ion-img>
-  </ion-avatar>
-  <ion-label>
-    <h2 class="name">{{currentUser}}</h2>
-    <p class="role">{{currentRole}}</p>
-  </ion-label>
-</div>
+<ion-grid>
+  <ion-row>
+    <ion-col size="6">
+      <ion-avatar>
+        <ion-img [src]="photoUrl"></ion-img>
+      </ion-avatar>
+    </ion-col>
+    <ion-col size="6">
+      <ion-label>
+        <h4 class="txt-white">{{userName | uppercase}}</h4>
+      </ion-label>
+      <ion-label>
+        <h6 class="txt-white">Mis Puntos: {{points}}</h6>
+      </ion-label>
+      <ion-label>
+        <h5 class="txt-white">
+          <ion-icon
+            name="location"
+            color="danger"
+          ></ion-icon>{{currentLocation}}
+        </h5>
+      </ion-label>
+    </ion-col>
+  </ion-row>
+</ion-grid>
